@@ -1,0 +1,23 @@
+{
+  "name": "leetcode",
+  "version": "1.0.0",
+  "description": "My answers to leetcode questions (interview prep)",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/masomh-personal/Leetcode.git"
+  },
+  "author": "masomh-personal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/masomh-personal/Leetcode/issues"
+  },
+  "homepage": "https://github.com/masomh-personal/Leetcode#readme",
+  "devDependencies": {
+    "vitest": "^2.0.5"
+  }
+}

@@ -1,5 +1,5 @@
 /**
- * 133. Clone Graph [MEDIUM]
+ * 133. Clone Graph [MEDIUM: Graphs]
  * V = # Vertices
  * E = # Edges
  * Time: O(V + E) | BFS ensures we visit each vertex and edge exactly once
@@ -7,7 +7,7 @@
  */
 
 // ES6 Class: LeetCode _Node
-class _Node {
+export class _Node {
   constructor(val = 0, neighbors = []) {
     this.val = val;
     this.neighbors = neighbors;
@@ -18,7 +18,7 @@ class _Node {
  * @param {_Node} node
  * @return {_Node}
  */
-const cloneGraph = (node) => {
+export const cloneGraph = (node) => {
   // Handle edge case where the input graph is empty
   if (!node) return node;
 
