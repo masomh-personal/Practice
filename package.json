@@ -1,7 +1,7 @@
 {
-  "name": "leetcode",
+  "name": "exercises",
   "version": "1.0.0",
-  "description": "My answers to leetcode questions (interview prep)",
+  "description": "Interview prep exercises and practice",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/masomh-personal/Leetcode.git"
+    "url": "git+https://github.com/masomh-personal/Exercises"
   },
   "author": "masomh-personal",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/masomh-personal/Leetcode/issues"
+    "url": "https://github.com/masomh-personal/Exercises/issues"
   },
-  "homepage": "https://github.com/masomh-personal/Leetcode#readme",
+  "homepage": "https://github.com/masomh-personal/Exercises#readme",
   "devDependencies": {
     "vitest": "^2.0.5"
   }
