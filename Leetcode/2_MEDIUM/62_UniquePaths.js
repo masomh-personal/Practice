@@ -45,7 +45,7 @@ const uniquePaths = (rows, cols) => {
 const uniquePathsRecursive = (rows, cols) => {
   const [startR, startC] = [0, 0];
 
-  // Initialize a cache to store results of subproblems
+  // Initialize a cache to store results of sub problems
   const cache = Array.from({ length: rows }, () => Array.from({ length: cols }, () => 0));
 
   const innerPathing = (rowIdx, colIdx) => {
@@ -55,7 +55,7 @@ const uniquePathsRecursive = (rows, cols) => {
     // Base case #2: Reached the destination, one valid path found
     if (rowIdx === rows - 1 && colIdx === cols - 1) return 1;
 
-    // Base case #3: If result is already cached, return it to avoid recomputation
+    // Base case #3: If result is already cached, return it to avoid re-computation
     if (cache[rowIdx][colIdx]) return cache[rowIdx][colIdx];
 
     // Recursive calls: calculate paths by moving down and right
