@@ -1,7 +1,7 @@
 import { romanToInt } from '../13_RomanToInteger.js'; // Adjust the import path as needed
 
 describe('romanToInt', () => {
-  // Leetcode example tests
+  // leetcode example tests
   it('should convert "III" to 3', () => {
     expect(romanToInt('III')).toBe(3);
   });

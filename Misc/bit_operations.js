@@ -1,5 +1,5 @@
 /**
- * 191. Number of 1 Bits (Easy: Leetcode)
+ * 191. Number of 1 Bits (Easy: leetcode)
  * NOTE: set bit is the binary representation of a number 1
  * Three different approaches
  * @param {number} n

@@ -2,8 +2,8 @@ import { rob, robRecursive } from '../198_HouseRobber.js'; // Adjust the import 
 
 describe('House Robber - Iterative and Recursive Solutions', () => {
   const testCases = [
-    { nums: [1, 2, 3, 1], expected: 4, description: 'Leetcode: example #1' },
-    { nums: [2, 7, 9, 3, 1], expected: 12, description: 'Leetcode: example #2' },
+    { nums: [1, 2, 3, 1], expected: 4, description: 'leetcode: example #1' },
+    { nums: [2, 7, 9, 3, 1], expected: 12, description: 'leetcode: example #2' },
     { nums: [1], expected: 1, description: 'Single house' },
     { nums: [1, 2], expected: 2, description: 'Two houses with increasing values' },
     { nums: [2, 1], expected: 2, description: 'Two houses with decreasing values' },

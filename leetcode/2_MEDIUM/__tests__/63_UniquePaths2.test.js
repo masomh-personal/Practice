@@ -1,6 +1,6 @@
 import { uniquePathsWithObstaclesRecursive } from '../63_UniquePaths2.js';
 
-// Sample tests based on Leetcode problem 63 - Unique Paths II
+// Sample tests based on leetcode problem 63 - Unique Paths II
 describe('Unique Paths II (Recursive with Memoization)', () => {
   it('should return 2 for a 3x3 grid with obstacles', () => {
     const obstacleGrid = [
