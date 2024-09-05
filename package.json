@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/masomh-personal/Exercises"
+    "url": "git+https://github.com/masomh-personal/Practice"
   },
   "author": "masomh-personal",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/masomh-personal/Exercises/issues"
+    "url": "https://github.com/masomh-personal/Practice/issues"
   },
-  "homepage": "https://github.com/masomh-personal/Exercises#readme",
+  "homepage": "https://github.com/masomh-personal/Practice#readme",
   "devDependencies": {
     "vitest": "^2.0.5"
   }
