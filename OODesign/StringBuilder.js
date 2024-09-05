@@ -21,8 +21,8 @@ export default class StringBuilder {
   }
 
   // Convert the accumulated string parts to a single string
-  printString() {
-    return this.#strings.join(''); // Join the array elements into a single string
+  printString(delimeter = '') {
+    return this.#strings.join(delimeter); // Join the array elements into a single string
   }
 
   // Clear the string builder by resetting the internal array
