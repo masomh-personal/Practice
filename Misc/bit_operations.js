@@ -10,7 +10,6 @@ const hammingWeight = (n) => {
 
   while (n) {
     if ((n & 1) === 1) resultCount++;
-
     n = n >> 1;
   }
 
