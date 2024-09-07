@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/masomh-personal/Practice/issues"
   },
-  "homepage": "https://github.com/masomh-personal/Practice#readme"
+  "homepage": "https://github.com/masomh-personal/Practice#readme",
+  "devDependencies": {
+    "vitest": "^2.0.5"
+  }
 }
