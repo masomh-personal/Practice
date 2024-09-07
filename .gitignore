@@ -1,2 +1,79 @@
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.pid.lock
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Production build directories
+dist/
+build/
+
+# Optional npm/yarn/pnpm cache directory
+.npm/
+.yarn/
+.pnp/
+.pnpm-store/
+
+# Optional eslint cache
+.eslintcache
+
+# Output of 'npm pack'
+*.tgz
+
+# dotenv environment variables file
+.env
+.env.local
+.env.*.local
+
+# Framework/build output
+.next/
+.nuxt/
+out/
+.svelte-kit/
+.cache/
+public/
+
+# IDE/editor settings
 .idea/
-node_modules
+.vscode/
+
+# Test coverage output
+coverage/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Parcel-bundler cache
+.cache/
+
+# Lock files (optional, depending on project preferences)
+# Uncomment if you do not wish to track lock files
+# package-lock.json
+# yarn.lock
+# .pnpm-lock.yaml
+
+# Optional REPL history
+.node_repl_history
+
+# Temporary directories or files
+temp/
+.tmp/
+
+# OS-specific files
+.DS_Store   # macOS
+Thumbs.db   # Windows
+
+# Prettier and stylelint cache
+.prettiercache
+.stylelintcache
