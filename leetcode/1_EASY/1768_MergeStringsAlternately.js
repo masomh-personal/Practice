@@ -1,5 +1,5 @@
 /**
- * 1768. Merge Strings Alternately
+ * 1768. Merge Strings Alternately (Easy)
  * Time: O(n)
  * Space: O(n)
  * @param {string} word1
