@@ -54,9 +54,6 @@ coverage/
 # TypeScript cache
 *.tsbuildinfo
 
-# Parcel-bundler cache
-.cache/
-
 # Lock files (optional, depending on project preferences)
 # Uncomment if you do not wish to track lock files
 # package-lock.json
@@ -71,8 +68,8 @@ temp/
 .tmp/
 
 # OS-specific files
-.DS_Store   # macOS
-Thumbs.db   # Windows
+.DS_Store
+Thumbs.db
 
 # Prettier and stylelint cache
 .prettiercache
