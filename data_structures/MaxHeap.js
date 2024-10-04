@@ -17,6 +17,9 @@ export class MaxHeap {
   #heap = [];
 
   // Public Methods
+  getHeapArr() {
+    return this.#heap;
+  }
 
   /**
    * Insert a new value into the heap while maintaining the heap property.
