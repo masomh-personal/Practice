@@ -7,9 +7,6 @@
  * @return {number} - The length of the longest subarray of 1's after deleting one element
  */
 export const longestSubarray = (nums) => {
-  // If there's only one element, return 1 (as per user-defined preference)
-  if (nums.length === 1) return 1;
-
   let longest = 0; // To track the longest subarray of 1's
   let zeroCounter = 0; // To track the number of zeroes in the current window
 

@@ -22,13 +22,13 @@ describe('longestSubarray', () => {
   it('should return 1 for nums = [0]', () => {
     const nums = [0];
     const result = longestSubarray(nums);
-    expect(result).toBe(1);
+    expect(result).toBe(0);
   });
 
   it('should return 1 for nums = [1]', () => {
     const nums = [1];
     const result = longestSubarray(nums);
-    expect(result).toBe(1);
+    expect(result).toBe(0);
   });
 
   it('should return 99 for nums = [1...0] (long sequence of 1s with one 0 in between)', () => {
