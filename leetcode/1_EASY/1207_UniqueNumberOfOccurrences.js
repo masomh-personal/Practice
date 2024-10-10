@@ -5,7 +5,7 @@
  * - Since all other operations (Map.get(), Set.has(), Set.add()) are O(1), the overall time complexity is O(n).
  *
  * Space: O(n)
- * - We store elements in the occurrenceMap and uniqueFreqsSet, both of which can grow up to the size of the input array.
+ * - We store elements in the occurrenceMap and uniqueFreqSet, both of which can grow up to the size of the input array.
  * - Therefore, the space complexity is O(n), where n is the size of the input array.
  *
  * @param {number[]} arr
