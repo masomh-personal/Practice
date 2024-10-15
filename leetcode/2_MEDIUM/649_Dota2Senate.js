@@ -16,9 +16,10 @@ export const predictPartyVictory = (senate) => {
   // Two arrays to store the indices of the Radiant and Dire senators, respectively
   const radiantQueue = [];
   const direQueue = [];
+  const senateLength = senate.length;
 
   // Populate the queues with the initial positions of Radiant and Dire senators
-  for (let i = 0; i < senate.length; i++) {
+  for (let i = 0; i < senateLength; i++) {
     if (senate[i] === 'R') {
       radiantQueue.push(i); // Store index of Radiant senator
     } else {
@@ -41,11 +42,11 @@ export const predictPartyVictory = (senate) => {
     if (radiantSenator < direSenator) {
       // Radiant senator acts first because their index is smaller
       // Ban the current Dire senator, and push the Radiant senator to the next round
-      radiantQueue.push(radiantSenator + senate.length);
+      radiantQueue.push(radiantSenator + senateLength);
     } else {
       // Dire senator acts first because their index is smaller
       // Ban the current Radiant senator, and push the Dire senator to the next round
-      direQueue.push(direSenator + senate.length);
+      direQueue.push(direSenator + senateLength);
     }
 
     // After banning one senator, we move the pointer forward to the next available senator
