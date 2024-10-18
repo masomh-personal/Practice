@@ -23,18 +23,19 @@ describe('binarySearch', () => {
       expect(result).toBe(4);
     });
 
+    // NOTE: with a large array to test, we need to ensure unique values + make the array creation with no randomness
     it('should return the correct index for target within a very large sorted array', () => {
-      const arraySize = 1e6; // 1 million, going higher may overflow
+      const arraySize = 1e7; // 1 million elements
       const nums = Array(arraySize);
 
-      // Populate the array with sorted random numbers
+      // Populate the array with deterministic, sorted values (e.g., increments of 2)
       nums[0] = 0;
       for (let i = 1; i < arraySize; i++) {
-        nums[i] = nums[i - 1] + Math.floor(Math.random() * 10);
+        nums[i] = nums[i - 1] + 2; // Ensure no duplicates and maintain sorted order
       }
 
-      // Generate a random index within bounds
-      const randomIndexWithinBounds = Math.floor(Math.random() * (arraySize - 1));
+      // Choose a random index within the array's bounds
+      const randomIndexWithinBounds = Math.floor(Math.random() * arraySize);
 
       // Get the target value from the nums array at the random index
       const target = nums[randomIndexWithinBounds];
