@@ -1,9 +1,15 @@
-import { MaxHeap } from '../MaxHeap'; // Adjust the path as needed
+import { MaxHeap } from '../MaxHeap';
 
 describe('MaxHeap', () => {
+  let heap;
+
+  beforeEach(() => {
+    // Initialize a new heap before each test
+    heap = new MaxHeap();
+  });
+
   describe('insert', () => {
     it('should insert elements into the heap and maintain max-heap property', () => {
-      const heap = new MaxHeap();
       heap.insert(10);
       heap.insert(20);
       heap.insert(5);
@@ -14,7 +20,6 @@ describe('MaxHeap', () => {
     });
 
     it('should maintain the correct size of the heap', () => {
-      const heap = new MaxHeap();
       heap.insert(1);
       heap.insert(3);
       heap.insert(5);
@@ -26,7 +31,6 @@ describe('MaxHeap', () => {
 
   describe('extractMax', () => {
     it('should extract the maximum element from the heap', () => {
-      const heap = new MaxHeap();
       heap.insert(10);
       heap.insert(50);
       heap.insert(20);
@@ -38,12 +42,10 @@ describe('MaxHeap', () => {
     });
 
     it('should return null when extracting from an empty heap', () => {
-      const heap = new MaxHeap();
       expect(heap.extractMax()).toBeNull();
     });
 
     it('should maintain heap property after multiple extractions', () => {
-      const heap = new MaxHeap();
       heap.insert(10);
       heap.insert(40);
       heap.insert(20);
@@ -64,7 +66,6 @@ describe('MaxHeap', () => {
 
   describe('peekMax', () => {
     it('should return the maximum element without removing it', () => {
-      const heap = new MaxHeap();
       heap.insert(15);
       heap.insert(25);
       heap.insert(10);
@@ -75,14 +76,12 @@ describe('MaxHeap', () => {
     });
 
     it('should return null when peeking into an empty heap', () => {
-      const heap = new MaxHeap();
       expect(heap.peekMax()).toBeNull();
     });
   });
 
   describe('getSize', () => {
     it('should return the correct size of the heap', () => {
-      const heap = new MaxHeap();
       expect(heap.getSize()).toBe(0); // Initially empty
 
       heap.insert(1);
@@ -91,7 +90,6 @@ describe('MaxHeap', () => {
     });
 
     it('should decrease size after extracting elements', () => {
-      const heap = new MaxHeap();
       heap.insert(100);
       heap.insert(200);
 
@@ -107,20 +105,44 @@ describe('MaxHeap', () => {
 
   describe('isEmpty', () => {
     it('should return true when the heap is empty', () => {
-      const heap = new MaxHeap();
       expect(heap.isEmpty()).toBe(true);
     });
 
     it('should return false when the heap is not empty', () => {
-      const heap = new MaxHeap();
       heap.insert(50);
       expect(heap.isEmpty()).toBe(false);
     });
   });
 
+  describe('heapify', () => {
+    it('should convert an array into a valid max-heap', () => {
+      const arr = [10, 5, 20, 15, 30];
+      heap.heapify(arr);
+
+      // Expect the max element to be at the root after heapify
+      expect(heap.peekMax()).toBe(30);
+    });
+
+    it('should maintain heap property after extracting elements from a heapified array', () => {
+      const arr = [15, 20, 30, 10, 5, 40, 25];
+      heap.heapify(arr);
+
+      // After heapify, the max value should be 40
+      expect(heap.peekMax()).toBe(40);
+
+      // Extract max elements one by one and ensure they are in descending order
+      const extracted = [];
+      while (!heap.isEmpty()) {
+        extracted.push(heap.extractMax());
+      }
+
+      // The extracted array should be sorted in descending order
+      expect(extracted).toEqual([40, 30, 25, 20, 15, 10, 5]);
+    });
+  });
+
   describe('heap property validation', () => {
     it('should maintain max-heap property after multiple insertions', () => {
-      const heap = new MaxHeap();
       const values = [3, 10, 1, 100, 50, 30, 20];
       values.forEach((v) => heap.insert(v));
 
@@ -137,7 +159,6 @@ describe('MaxHeap', () => {
     });
 
     it('should maintain max-heap property after multiple insertions and extractions', () => {
-      const heap = new MaxHeap();
       heap.insert(60);
       heap.insert(40);
       heap.insert(80);

@@ -73,6 +73,20 @@ export class MaxHeap {
     return this.#heap.length;
   }
 
+  /**
+   * Build the heap from an array using the heapify method.
+   * @param {number[]} arr - The array to convert into a heap.
+   */
+  heapify(arr) {
+    this.#heap = arr;
+    const n = this.#heap.length;
+
+    // Start from the last non-leaf node and sift down
+    for (let i = Math.floor(n / 2) - 1; i >= 0; i--) {
+      this.#bubbleDown(i);
+    }
+  }
+
   // Private Methods
 
   /**
@@ -125,8 +139,8 @@ export class MaxHeap {
   }
 
   /**
-   * Heapify down to maintain the max heap property after extraction.
-   * @param {number} parentIdx - Index of the root element after extraction.
+   * Heapify down to maintain the max heap property after extraction or during heapify.
+   * @param {number} parentIdx - Index of the root element after extraction or during heapify.
    */
   #bubbleDown(parentIdx) {
     while (parentIdx < this.#heap.length) {
