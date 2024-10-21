@@ -89,8 +89,10 @@ describe('heapSort', () => {
   });
 
   describe('Performance Testing (to be less than specific set amount in ms)', () => {
+    const arrSize = 1e5; // 100,000
+
     it('should measure performance for large arrays (ascending)', () => {
-      const arr = Array.from({ length: 10000 }, () => Math.floor(Math.random() * 10000));
+      const arr = Array.from({ length: arrSize }, () => Math.floor(Math.random() * arrSize));
       const timeTaken = measurePerformance(heapSort, [...arr]);
 
       console.log(
@@ -100,7 +102,7 @@ describe('heapSort', () => {
     });
 
     it('should measure performance for large arrays (descending)', () => {
-      const arr = Array.from({ length: 10000 }, () => Math.floor(Math.random() * 10000));
+      const arr = Array.from({ length: arrSize }, () => Math.floor(Math.random() * arrSize));
       const timeTaken = measurePerformance(heapSort, [...arr], false);
 
       console.log(
