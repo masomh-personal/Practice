@@ -1,4 +1,5 @@
 import { heapSort } from '../heap-sort.js';
+import { measurePerformance } from '../../utilities/benchmarking.js';
 
 describe('heapSort', () => {
   describe('Basic Functionality', () => {
@@ -73,7 +74,7 @@ describe('heapSort', () => {
     });
   });
 
-  describe('Large Arrays', () => {
+  describe('Large Arrays (comparing to JS engine sorting()', () => {
     it('should handle a large array efficiently and return the correct sorted result (ascending)', () => {
       const arr = Array.from({ length: 1000 }, () => Math.floor(Math.random() * 1000));
       const result = heapSort([...arr]);
@@ -87,27 +88,25 @@ describe('heapSort', () => {
     });
   });
 
-  describe('Performance Testing', () => {
-    it('should perform efficiently with very large arrays (ascending)', () => {
+  describe('Performance Testing (to be less than specific set amount in ms)', () => {
+    it('should measure performance for large arrays (ascending)', () => {
       const arr = Array.from({ length: 10000 }, () => Math.floor(Math.random() * 10000));
-      const start = performance.now();
-      const result = heapSort([...arr]);
-      const end = performance.now();
-      expect(result).toEqual(arr.sort((a, b) => a - b));
+      const timeTaken = measurePerformance(heapSort, [...arr]);
+
       console.log(
-        `Time taken for sorting 10,000 elements (ascending): ${(end - start).toFixed(3)}ms`
+        `Performance: heapSort() executed in ${timeTaken.toFixed(2)} milliseconds (ascending).`
       );
+      expect(timeTaken).toBeLessThan(1000); // Example assertion for performance threshold
     });
 
-    it('should perform efficiently with very large arrays (descending)', () => {
+    it('should measure performance for large arrays (descending)', () => {
       const arr = Array.from({ length: 10000 }, () => Math.floor(Math.random() * 10000));
-      const start = performance.now();
-      const result = heapSort([...arr], false);
-      const end = performance.now();
-      expect(result).toEqual(arr.sort((a, b) => b - a));
+      const timeTaken = measurePerformance(heapSort, [...arr], false);
+
       console.log(
-        `Time taken for sorting 10,000 elements (descending): ${(end - start).toFixed(3)}ms`
+        `Performance: heapSort() executed in ${timeTaken.toFixed(2)} milliseconds (descending).`
       );
+      expect(timeTaken).toBeLessThan(1000); // Example assertion for performance threshold
     });
   });
 });
