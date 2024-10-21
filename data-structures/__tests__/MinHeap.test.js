@@ -1,9 +1,16 @@
 import { MinHeap } from '../MinHeap.js';
 
 describe('MinHeap', () => {
+  // Used for all tests
+  let heap;
+
+  beforeEach(() => {
+    // Initialize a new heap before each test
+    heap = new MinHeap();
+  });
+
   describe('insert', () => {
     it('should insert elements into the heap and maintain min-heap property', () => {
-      const heap = new MinHeap();
       heap.insert(10);
       heap.insert(20);
       heap.insert(5);
@@ -14,7 +21,6 @@ describe('MinHeap', () => {
     });
 
     it('should maintain the correct size of the heap', () => {
-      const heap = new MinHeap();
       heap.insert(1);
       heap.insert(3);
       heap.insert(5);
@@ -26,7 +32,6 @@ describe('MinHeap', () => {
 
   describe('extractMin', () => {
     it('should extract the minimum element from the heap', () => {
-      const heap = new MinHeap();
       heap.insert(10);
       heap.insert(50);
       heap.insert(20);
@@ -38,12 +43,10 @@ describe('MinHeap', () => {
     });
 
     it('should return null when extracting from an empty heap', () => {
-      const heap = new MinHeap();
       expect(heap.extractMin()).toBeNull();
     });
 
     it('should maintain heap property after multiple extractions', () => {
-      const heap = new MinHeap();
       heap.insert(10);
       heap.insert(40);
       heap.insert(20);
@@ -64,7 +67,6 @@ describe('MinHeap', () => {
 
   describe('peekMin', () => {
     it('should return the minimum element without removing it', () => {
-      const heap = new MinHeap();
       heap.insert(15);
       heap.insert(25);
       heap.insert(10);
@@ -75,14 +77,12 @@ describe('MinHeap', () => {
     });
 
     it('should return null when peeking into an empty heap', () => {
-      const heap = new MinHeap();
       expect(heap.peekMin()).toBeNull();
     });
   });
 
   describe('getSize', () => {
     it('should return the correct size of the heap', () => {
-      const heap = new MinHeap();
       expect(heap.getSize()).toBe(0); // Initially empty
 
       heap.insert(1);
@@ -91,7 +91,6 @@ describe('MinHeap', () => {
     });
 
     it('should decrease size after extracting elements', () => {
-      const heap = new MinHeap();
       heap.insert(100);
       heap.insert(200);
 
@@ -107,20 +106,44 @@ describe('MinHeap', () => {
 
   describe('isEmpty', () => {
     it('should return true when the heap is empty', () => {
-      const heap = new MinHeap();
       expect(heap.isEmpty()).toBe(true);
     });
 
     it('should return false when the heap is not empty', () => {
-      const heap = new MinHeap();
       heap.insert(50);
       expect(heap.isEmpty()).toBe(false);
     });
   });
 
+  describe('heapify', () => {
+    it('should convert an array into a valid min-heap', () => {
+      const arr = [10, 5, 20, 15, 30];
+      heap.heapify(arr);
+
+      // Expect the min element to be at the root after heapify
+      expect(heap.peekMin()).toBe(5);
+    });
+
+    it('should maintain heap property after extracting elements from a heapified array', () => {
+      const arr = [25, 20, 30, 10, 5, 40, 15];
+      heap.heapify(arr);
+
+      // After heapify, the min value should be 5
+      expect(heap.peekMin()).toBe(5);
+
+      // Extract min elements one by one and ensure they are in ascending order
+      const extracted = [];
+      while (!heap.isEmpty()) {
+        extracted.push(heap.extractMin());
+      }
+
+      // The extracted array should be sorted in ascending order
+      expect(extracted).toEqual([5, 10, 15, 20, 25, 30, 40]);
+    });
+  });
+
   describe('heap property validation', () => {
     it('should maintain min-heap property after multiple insertions', () => {
-      const heap = new MinHeap();
       const values = [30, 10, 50, 20, 5, 40, 60];
       values.forEach((v) => heap.insert(v));
 
@@ -137,7 +160,6 @@ describe('MinHeap', () => {
     });
 
     it('should maintain min-heap property after multiple insertions and extractions', () => {
-      const heap = new MinHeap();
       heap.insert(60);
       heap.insert(40);
       heap.insert(80);
