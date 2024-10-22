@@ -23,4 +23,28 @@ export default class ArrayUtils {
 
     return arr;
   };
+
+  /**
+   * Swaps two elements at two different indices within the same array
+   * NOTE: added guard clauses for out of bound indices or if the same index was provided
+   *
+   * @param arr - The array containing the elements to swap
+   * @param idx1 - The index of the first element
+   * @param idx2 - The index of the second element
+   */
+  static swap = <T>(arr: T[], idx1: number, idx2: number): void => {
+    // Guard clauses: out of bounds
+    const isOutOfBounds: boolean = [idx1, idx2].some(
+      (idx: number): boolean => idx < 0 || idx >= arr.length
+    );
+
+    if (isOutOfBounds) {
+      throw new RangeError('One or both provided indices are out of bounds of the array!');
+    }
+
+    // Guard clause: if indices are the same, just return
+    if (idx1 === idx2) return;
+
+    [arr[idx1], arr[idx2]] = [arr[idx2], arr[idx1]];
+  };
 }
