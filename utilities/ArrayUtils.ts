@@ -1,4 +1,4 @@
-export class ArrayUtils {
+export default class ArrayUtils {
   /**
    * Creates a random INTEGER array of size 'size' in no particular order.
    * Defaults:

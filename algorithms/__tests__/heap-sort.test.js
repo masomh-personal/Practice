@@ -1,5 +1,5 @@
 import { heapSort } from '../heap-sort.js';
-import { measurePerformance } from '../../utilities/benchmarking.ts';
+import MiscUtils from '../../utilities/MiscUtils.ts';
 
 describe('heapSort', () => {
   describe('Basic Functionality', () => {
@@ -93,7 +93,7 @@ describe('heapSort', () => {
 
     it('should measure performance for large arrays (ascending)', () => {
       const arr = Array.from({ length: arrSize }, () => Math.floor(Math.random() * arrSize));
-      const timeTaken = measurePerformance(heapSort, [...arr]);
+      const timeTaken = MiscUtils.measurePerformance(heapSort, [...arr]);
 
       console.log(
         `Performance: heapSort() executed in ${timeTaken.toFixed(2)} milliseconds (ascending).`
@@ -103,7 +103,7 @@ describe('heapSort', () => {
 
     it('should measure performance for large arrays (descending)', () => {
       const arr = Array.from({ length: arrSize }, () => Math.floor(Math.random() * arrSize));
-      const timeTaken = measurePerformance(heapSort, [...arr], false);
+      const timeTaken = MiscUtils.measurePerformance(heapSort, [...arr], false);
 
       console.log(
         `Performance: heapSort() executed in ${timeTaken.toFixed(2)} milliseconds (descending).`
