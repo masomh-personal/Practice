@@ -1,5 +1,6 @@
 import { heapSort } from '../heap-sort.js';
 import MiscUtils from '../../utilities/MiscUtils.ts';
+import ArrayUtils from '../../utilities/ArrayUtils.ts';
 
 describe('heapSort', () => {
   describe('Basic Functionality', () => {
@@ -75,24 +76,26 @@ describe('heapSort', () => {
   });
 
   describe('Large Arrays (comparing to JS engine sorting()', () => {
+    // Used for all tests within this block
+    const arr = ArrayUtils.createRandomIntegerArr(1_000);
+
     it('should handle a large array efficiently and return the correct sorted result (ascending)', () => {
-      const arr = Array.from({ length: 1000 }, () => Math.floor(Math.random() * 1000));
       const result = heapSort([...arr]);
       expect(result).toEqual(arr.sort((a, b) => a - b));
     });
 
     it('should handle a large array efficiently and return the correct sorted result (descending)', () => {
-      const arr = Array.from({ length: 1000 }, () => Math.floor(Math.random() * 1000));
       const result = heapSort([...arr], false);
       expect(result).toEqual(arr.sort((a, b) => b - a));
     });
   });
 
   describe('Performance Testing (to be less than specific set amount in ms)', () => {
-    const arrSize = 1e5; // 100,000
+    const arrSize = 1e6;
+    // Used for all tests within this block
+    const arr = ArrayUtils.createRandomIntegerArr(arrSize);
 
     it('should measure performance for large arrays (ascending)', () => {
-      const arr = Array.from({ length: arrSize }, () => Math.floor(Math.random() * arrSize));
       const timeTaken = MiscUtils.measurePerformance(heapSort, [...arr]);
 
       console.log(
@@ -102,7 +105,6 @@ describe('heapSort', () => {
     });
 
     it('should measure performance for large arrays (descending)', () => {
-      const arr = Array.from({ length: arrSize }, () => Math.floor(Math.random() * arrSize));
       const timeTaken = MiscUtils.measurePerformance(heapSort, [...arr], false);
 
       console.log(
