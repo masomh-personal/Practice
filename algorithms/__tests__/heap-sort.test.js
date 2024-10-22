@@ -1,5 +1,5 @@
 import { heapSort } from '../heap-sort.js';
-import { measurePerformance } from '../../utilities/benchmarking.js';
+import { measurePerformance } from '../../utilities/benchmarking.ts';
 
 describe('heapSort', () => {
   describe('Basic Functionality', () => {
