@@ -1,5 +1,5 @@
 // Assuming your counting sort function is named `countingSort` and is exported from a file named `countingSort.js`.
-import { countingSort } from '../counting-sort.js';
+import { countingSort } from '../counting-sort.ts';
 
 describe('Counting Sort', () => {
   it('should throw an error if there are any negative numbers in provided array', () => {

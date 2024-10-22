@@ -1,4 +1,4 @@
-import { heapSort } from '../heap-sort.js';
+import { heapSort } from '../heap-sort.ts';
 import MiscUtils from '../../utilities/MiscUtils.ts';
 import ArrayUtils from '../../utilities/ArrayUtils.ts';
 

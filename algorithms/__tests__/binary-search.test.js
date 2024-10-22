@@ -1,4 +1,4 @@
-import { binarySearch } from '../binary-search.js';
+import { binarySearch } from '../binary-search.ts';
 
 describe('binarySearch', () => {
   describe('when the target exists in the array', () => {

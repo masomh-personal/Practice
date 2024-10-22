@@ -1,14 +1,14 @@
 /**
  * Performs binary search on a sorted array of numbers.
- * @param {number[]} nums - The sorted array of numbers.
- * @param {number} target - The number to search for.
- * @returns {number} - The index of the target if found, otherwise -1.
+ * @param nums - The sorted array of numbers.
+ * @param target - The number to search for.
+ * @returns The index of the target if found, otherwise -1.
  *
  * Time Complexity: O(log n)
  * - Each iteration reduces the search space by half, resulting in a logarithmic time complexity.
  * - 'n' is the length of the array.
  */
-export const binarySearch = (nums, target) => {
+export const binarySearch = (nums: number[], target: number): number => {
   let left = 0;
   let right = nums.length - 1;
 

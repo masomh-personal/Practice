@@ -1,5 +1,5 @@
-import { MinHeap } from '../data-structures/MinHeap.js';
-import { MaxHeap } from '../data-structures/MaxHeap.js';
+import { MinHeap } from '../data-structures/MinHeap';
+import { MaxHeap } from '../data-structures/MaxHeap';
 
 /**
  * heapSort function using MinHeap or MaxHeap for sorting an array.
@@ -11,11 +11,11 @@ import { MaxHeap } from '../data-structures/MaxHeap.js';
  * Time Complexity: O(n * log n)
  * Space Complexity: O(n)
  *
- * @param {number[]} numArr - The array of numbers to be sorted.
- * @param {boolean} [isAscending=true] - If true, sorts in ascending order; if false, sorts in descending order.
- * @returns {number[]} - The sorted array.
+ * @param numArr - The array of numbers to be sorted.
+ * @param isAscending - If true, sorts in ascending order; if false, sorts in descending order (default is true).
+ * @returns The sorted array.
  */
-export const heapSort = (numArr, isAscending = true) => {
+export const heapSort = (numArr: number[], isAscending: boolean = true): number[] => {
   // Early return for arrays with 0 or 1 element (already sorted)
   if (numArr.length <= 1) return numArr;
 
@@ -25,11 +25,12 @@ export const heapSort = (numArr, isAscending = true) => {
   // Build the heap from the array using the heapify method
   heap.heapify(numArr);
 
-  const sorted = [];
+  const sorted: number[] = [];
+
   // Extract elements from the heap to build the sorted array
   while (!heap.isEmpty()) {
-    const extractedValue = isAscending ? heap.extractMin() : heap.extractMax();
-    sorted.push(extractedValue);
+    const extracted = heap instanceof MinHeap ? heap.extractMin() : heap.extractMax();
+    sorted.push(extracted);
   }
 
   return sorted;
