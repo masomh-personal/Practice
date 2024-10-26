@@ -1,17 +1,3 @@
-// Had to create a local 'implementation' of guess() via Leetcode
-// Function to create a guess function with a specific target
-const createGuessFunction = (pickedNumber) => {
-  return (num) => {
-    if (num > pickedNumber) return -1;
-    if (num < pickedNumber) return 1;
-    return 0;
-  };
-};
-
-// Set up the picked number and create the guess function
-const target = 6;
-const guess = createGuessFunction(target);
-
 /**
  * Time: O(log n) - because of binary search
  * Space: O(1) - constant space as we are not creating an array, just simply using integers

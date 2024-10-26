@@ -1,6 +1,7 @@
 import { guessNumber } from '../374_GuessNumberHigherOrLower.js';
 
 describe('guessNumber', () => {
+  // Mimic Leetcode "guessAPI"
   const createGuessFunction = (pickedNumber) => {
     return (num) => {
       if (num > pickedNumber) return -1;
