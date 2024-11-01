@@ -1,6 +1,7 @@
-// vitest.config.js
-export default {
+import { defineConfig } from 'vitest/config';
+
+export default defineConfig({
   test: {
-    globals: true, // Enable global availability of describe, it, expect, etc.
+    globals: true,
   },
-};
+});
