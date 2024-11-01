@@ -31,35 +31,35 @@ describe('Substitution cipher', () => {
   const key = 'abcdefghij';
   const cipher = new Cipher(key);
 
-  it.skip('can encode', () => {
+  it('can encode', () => {
     expect(cipher.encode('aaaaaaaaaa')).toEqual('abcdefghij');
   });
 
-  it.skip('can decode', () => {
+  it('can decode', () => {
     expect(cipher.decode('abcdefghij')).toEqual('aaaaaaaaaa');
   });
 
-  it.skip('is reversible', () => {
+  it('is reversible', () => {
     expect(cipher.decode(cipher.encode('abcdefghij'))).toEqual('abcdefghij');
   });
 
-  it.skip('can double shift encode', () => {
+  it('can double shift encode', () => {
     expect(new Cipher('iamapandabear').encode('iamapandabear')).toEqual('qayaeaagaciai');
   });
 
-  it.skip('can wrap on encode', () => {
+  it('can wrap on encode', () => {
     expect(cipher.encode('zzzzzzzzzz')).toEqual('zabcdefghi');
   });
 
-  it.skip('can wrap on decode', () => {
+  it('can wrap on decode', () => {
     expect(cipher.decode('zabcdefghi')).toEqual('zzzzzzzzzz');
   });
 
-  it.skip('can encode messages longer than the key', () => {
+  it('can encode messages longer than the key', () => {
     expect(new Cipher('abc').encode('iamapandabear')).toEqual('iboaqcnecbfcr');
   });
 
-  it.skip('can decode messages longer than the key', () => {
+  it('can decode messages longer than the key', () => {
     expect(new Cipher('abc').decode('iboaqcnecbfcr')).toEqual('iamapandabear');
   });
 });
