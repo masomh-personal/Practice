@@ -1,4 +1,4 @@
-import { longestConsecutive } from './128_LongestConsecutiveSequence.js';
+import { longestConsecutive } from '../128_LongestConsecutiveSequence.js';
 
 describe('longestConsecutive', () => {
   it('returns the length of the longest consecutive sequence when sequence is mixed', () => {
