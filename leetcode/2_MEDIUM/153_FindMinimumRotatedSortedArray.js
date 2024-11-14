@@ -179,38 +179,42 @@ export const findMin = (nums) => {
 /**
  * APPROACH: Binary Search
  *
- * This function finds the minimum element in a rotated sorted array using binary search.
- * The key idea is that in a rotated sorted array, the smallest element is the pivot point,
- * where the rotation happened. By comparing the middle element to the rightmost element,
- * we can decide which half of the array to search next.
+ * Finds the minimum element in a rotated sorted array using binary search.
+ * In a rotated sorted array, the minimum element is the pivot point.
+ * By comparing the middle element to the rightmost element, we can determine
+ * which half of the array to continue searching.
  *
- * Space Complexity: O(1) - Constant space is used for pointers and indices.
- * Time Complexity: O(log n) - Binary search reduces the search space by half on each iteration.
+ * Space Complexity: O(1) - Uses a fixed amount of extra space.
+ * Time Complexity: O(log n) - Reduces the search space by half each iteration.
  *
- * @param {number[]} nums - The rotated sorted array of unique elements.
+ * @param {number[]} nums - Rotated sorted array of unique elements.
  * @return {number} - The minimum element in the array.
  */
 export const findMinBS = (nums) => {
-  // If there's only one element, it's the minimum
+  // Edge case: if array has one element, it is the minimum
   if (nums.length === 1) return nums[0];
 
-  let left = 0; // Left pointer
-  let right = nums.length - 1; // Right pointer
+  let minElement = nums[0]; // Track the minimum element found
+  let left = 0;
+  let right = nums.length - 1;
 
-  // Binary search loop to locate the minimum element
-  while (left < right) {
-    const midIdx = left + Math.floor((right - left) / 2); // Calculate middle index
+  while (left <= right) {
+    // If current range is sorted, minimum is at the left boundary
+    if (nums[left] < nums[right]) {
+      minElement = Math.min(minElement, nums[left]);
+      break;
+    }
 
-    // If the middle element is greater than the rightmost element,
-    // the minimum must be in the right half
-    if (nums[midIdx] > nums[right]) {
-      left = midIdx + 1;
+    const mid = left + Math.floor((right - left) / 2);
+    minElement = Math.min(minElement, nums[mid]);
+
+    // Determine which side to search based on the middle element
+    if (nums[mid] >= nums[left]) {
+      left = mid + 1; // Left side sorted, search right
     } else {
-      // Otherwise, the minimum is in the left half (including possibly the midIdx itself)
-      right = midIdx;
+      right = mid - 1; // Right side sorted, search left
     }
   }
 
-  // After convergence, 'left' will be pointing to the minimum element
-  return nums[left];
+  return minElement;
 };
