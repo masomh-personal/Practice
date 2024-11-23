@@ -41,8 +41,7 @@ describe('Linked List Cycle II - Leetcode 142', () => {
       it('should return the node where the cycle begins for a cycle at pos 0', () => {
         const head = createLinkedList([1, 2], 0);
         const result = func(head);
-        const expected = head; // Node with value 1
-        expect(result).toBe(expected);
+        expect(result).toBe(head); // Node with value 1
       });
 
       it('should return null for a list with no cycle', () => {
@@ -62,8 +61,7 @@ describe('Linked List Cycle II - Leetcode 142', () => {
       it('should return the node where the cycle begins for a single node that points to itself', () => {
         const head = createLinkedList([1], 0);
         const result = func(head);
-        const expected = head; // The single node forms a cycle
-        expect(result).toBe(expected);
+        expect(result).toBe(head); // The single node forms a cycle
       });
 
       it('should return null for a single node with no cycle', () => {
