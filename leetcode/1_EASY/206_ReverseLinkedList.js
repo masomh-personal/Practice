@@ -1,27 +1,32 @@
 /**
  * ITERATIVE APPROACH
- * Time: O(n)
- * Space: O(1)
- * @param {ListNode} head
- * @return {ListNode}
+ * Reverse a singly linked list in place.
+ *
+ * Time: O(n) - Traverse each node exactly once
+ * Space: O(1) - No extra data structures used
+ * @param {ListNode} head - Head of the singly linked list
+ * @return {ListNode} - New head of the reversed linked list
  */
 export const reverseList = (head) => {
-  if (!head) return head;
+  if (!head) return head; // Edge case: empty list, return null immediately
 
-  let currNode = head;
-  let prev = null;
-  let next;
+  let currNode = head; // Start with the head of the list
+  let prev = null; // `prev` initially points to null, as the reversed list starts empty
+  let next; // Temporary variable to store the next node during iteration
 
+  // Traverse the entire list
   while (currNode) {
-    next = currNode.next;
-    currNode.next = prev;
-    prev = currNode;
-    currNode = next;
+    next = currNode.next; // Save the next node for the next iteration
+    currNode.next = prev; // Reverse the current node's pointer to point to the previous node
+    prev = currNode; // Move `prev` to the current node
+    currNode = next; // Move `currNode` to the next node in the original list
   }
 
-  // By the end of the while loop, currNode will have reached null, and prev will be pointing to the last node of the original list,
-  // which is now the first node of the reversed list. Returning prev ensures that you return the head of the reversed list.
-  return prev;
+  // By the end of the while loop:
+  // - `currNode` is null (end of the original list)
+  // - `prev` is the last node of the original list, which is now the head of the reversed list
+
+  return prev; // Return the new head of the reversed list
 };
 
 /**
