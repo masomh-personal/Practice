@@ -124,8 +124,8 @@ export class MaxHeap {
     while (childIdx > 0) {
       let parentIdx = this.#getParentIdx(childIdx);
 
-      const parentNum = this.#heap.at(parentIdx);
-      const childNum = this.#heap.at(childIdx);
+      const parentNum = this.#heap[parentIdx];
+      const childNum = this.#heap[childIdx];
 
       // If the parent is larger, the heap property is satisfied
       if (parentNum >= childNum) break;
@@ -146,10 +146,9 @@ export class MaxHeap {
     while (parentIdx < this.#heap.length) {
       let [leftChildIdx, rightChildIdx] = this.#getChildrenIndices(parentIdx);
 
-      let parentNum = this.#heap.at(parentIdx);
-      let leftChildNum = leftChildIdx < this.#heap.length ? this.#heap.at(leftChildIdx) : -Infinity;
-      let rightChildNum =
-        rightChildIdx < this.#heap.length ? this.#heap.at(rightChildIdx) : -Infinity;
+      let parentNum = this.#heap[parentIdx];
+      let leftChildNum = leftChildIdx < this.#heap.length ? this.#heap[leftChildIdx] : -Infinity;
+      let rightChildNum = rightChildIdx < this.#heap.length ? this.#heap[rightChildIdx] : -Infinity;
 
       // If the parent is larger than both children, we're done
       if (parentNum >= leftChildNum && parentNum >= rightChildNum) break;
