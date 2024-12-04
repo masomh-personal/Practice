@@ -68,3 +68,45 @@ export const searchNaive = (nums, target) => {
   // Use indexOf to find the target in the array.
   return nums.indexOf(target);
 };
+
+/**
+ * ATTEMPT 2: Naive "Fun" Closing in Approach
+ *
+ * Time Complexity: O(n/2) => O(n)
+ * - Linear search from both ends toward the center, processing two elements per iteration.
+ *
+ * Space Complexity: O(1)
+ * - Only uses pointers for left and right indices.
+ *
+ * @param {number[]} nums - The rotated sorted array to search in.
+ * @param {number} target - The target value to search for.
+ * @return {number} - Index of the target if found, otherwise -1.
+ */
+export const searchNaive2 = (nums, target) => {
+  // Edge case: Single-element array
+  if (nums.length === 1) {
+    return nums[0] === target ? 0 : -1;
+  }
+
+  let left = 0; // Start at the beginning
+  let right = nums.length - 1; // Start at the end
+
+  while (left <= right) {
+    // Check the left pointer
+    if (nums[left] === target) {
+      return left;
+    }
+
+    // Check the right pointer
+    if (nums[right] === target) {
+      return right;
+    }
+
+    // Move pointers toward the center
+    right--;
+    left++;
+  }
+
+  // Target not found
+  return -1;
+};

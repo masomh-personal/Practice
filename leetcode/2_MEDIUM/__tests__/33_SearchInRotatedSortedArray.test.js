@@ -1,4 +1,4 @@
-import { search, searchNaive } from '../33_SearchInRotatedSortedArray.js';
+import { search, searchNaive, searchNaive2 } from '../33_SearchInRotatedSortedArray.js';
 
 // Array of test cases
 const testCases = [
@@ -75,10 +75,19 @@ describe('Search in Rotated Sorted Array', () => {
     });
   });
 
-  describe('Naive Solution', () => {
+  describe('Naive Solution- indexOf()', () => {
     testCases.forEach(({ description, nums, target, expected }) => {
       it(description, () => {
         const result = searchNaive(nums, target);
+        expect(result).toBe(expected); // Note: Behavior may differ if `searchNaive` alters input logic.
+      });
+    });
+  });
+
+  describe('Naive "Fun" Solution', () => {
+    testCases.forEach(({ description, nums, target, expected }) => {
+      it(description, () => {
+        const result = searchNaive2(nums, target);
         expect(result).toBe(expected); // Note: Behavior may differ if `searchNaive` alters input logic.
       });
     });
