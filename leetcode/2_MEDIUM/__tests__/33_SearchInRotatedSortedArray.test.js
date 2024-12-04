@@ -88,7 +88,7 @@ describe('Search in Rotated Sorted Array', () => {
     testCases.forEach(({ description, nums, target, expected }) => {
       it(description, () => {
         const result = searchNaive2(nums, target);
-        expect(result).toBe(expected); // Note: Behavior may differ if `searchNaive` alters input logic.
+        expect(result).toBe(expected);
       });
     });
   });
