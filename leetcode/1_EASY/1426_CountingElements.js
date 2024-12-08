@@ -17,9 +17,6 @@ export const countElements = (nums) => {
   // Create a Set from the array for fast lookups (O(1) average time complexity per lookup)
   const numSet = new Set(nums);
 
-  // Count each number in nums where (num + 1) exists in the Set
-  return nums.reduce(
-    (totalCount, num) => (totalCount += numSet.has(num + 1) ? 1 : 0),
-    0 // Start with a count of 0
-  );
+  // Count elements with (num + 1) in the Set
+  return nums.reduce((count, num) => count + (numSet.has(num + 1) ? 1 : 0), 0);
 };
