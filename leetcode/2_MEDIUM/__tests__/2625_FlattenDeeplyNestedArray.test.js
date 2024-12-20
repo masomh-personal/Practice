@@ -44,23 +44,46 @@ describe('Leetcode #2625: Flatten Deeply Nested Array', () => {
       n: 1,
       expected: Array(100000).fill(1),
     },
+    {
+      description: 'should handle a large array with deeper nesting of [3 levels]',
+      arr: Array.from({ length: 1000 }, () => [[[1]]]),
+      n: 3,
+      expected: Array.from({ length: 1000 }, () => 1),
+    },
+    {
+      description: 'should handle a large array with even deeper nesting of [10 levels]',
+      arr: Array.from({ length: 1000 }, () => [[[[[[[[[[[1]]]]]]]]]]]),
+      n: 10,
+      expected: Array.from({ length: 1000 }, () => [1]),
+    },
+    {
+      description: 'should handle arrays with mixed data types',
+      arr: [1, 'a', [true, [2, [3]], 'b'], null],
+      n: 2,
+      expected: [1, 'a', true, 2, [3], 'b', null],
+    },
   ];
 
-  // Run test for both functions
-  describe(`flat() function`, () => {
-    testCases.forEach(({ description, arr, n, expected }) => {
-      it(description, () => {
-        const result = flat(arr, n);
-        expect(result).toEqual(expected);
-      });
-    });
-  });
+  // Implementations
+  const implementations = [
+    {
+      fn: flat,
+      describeText: '.flat() - Implementation',
+    },
+    {
+      fn: flatBuiltIn,
+      describeText: '.flatBuiltIn() - Implementation',
+    },
+  ];
 
-  describe(`flatBuiltIn() function`, () => {
-    testCases.forEach(({ description, arr, n, expected }) => {
-      it(description, () => {
-        const result = flatBuiltIn(arr, n);
-        expect(result).toEqual(expected);
+  // Run all test cases for each implementation
+  implementations.forEach(({ fn, describeText }) => {
+    describe(describeText, () => {
+      testCases.forEach(({ description, arr, n, expected }) => {
+        it(description, () => {
+          const result = fn(arr, n);
+          expect(result).toEqual(expected);
+        });
       });
     });
   });
