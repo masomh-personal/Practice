@@ -1,30 +1,49 @@
 /**
- * Approach: Iterative with Set() (Maintains Order)
- * Time Complexity: O(2^n) - Each number is either included or excluded.
+ * Approach: Iterative Backtracking with Ordered Subset Extension
+ *
+ * This approach builds subsets iteratively while ensuring that duplicate numbers
+ * do not create duplicate subsets. It does this by extending only the newly added
+ * subsets when processing duplicate numbers.
+ *
+ * Time Complexity: O(2^n) - Each number is either included or excluded, generating 2^n subsets.
+ * Sorting takes O(n log n), but subset generation dominates.
+ *
  * Space Complexity: O(2^n) - Storing all subsets.
- * @param {number[]} nums
- * @return {number[][]}
+ *
+ * @param {number[]} nums - The input array that may contain duplicates.
+ * @return {number[][]} - A list of all unique subsets.
  */
 export function subsetsWithDup(nums) {
-  nums.sort((a, b) => a - b); // Sorting ensures lexicographical order
-  const result = [[]]; // Start with the empty subset
+  // Step 1: Sort the array to ensure that duplicates are adjacent
+  nums.sort((a, b) => a - b);
 
-  let prevNewSubsets = []; // Track subsets added in last iteration
+  const result = [[]]; // Start with an empty subset: the power set always includes this.
 
+  let prevNewSubsets = []; // Keeps track of subsets added in the last iteration.
+
+  // Step 2: Iterate through each number in the sorted array
   for (let i = 0; i < nums.length; i++) {
-    const newSubsets = [];
+    const newSubsets = []; // Temporary storage for new subsets in this iteration.
 
-    // If current number is a duplicate, only extend from previously added subsets
+    /**
+     * Step 3: Decide where to extend from:
+     * - If nums[i] is a duplicate (nums[i] === nums[i - 1]), we ONLY extend subsets
+     *   that were generated in the previous iteration (prevNewSubsets). This ensures
+     *   that duplicates are only added in the same "level" where they first appeared.
+     * - Otherwise, extend from all subsets in `result` (including previous numbers).
+     */
     const sourceSubsets = i > 0 && nums[i] === nums[i - 1] ? prevNewSubsets : result;
 
-    prevNewSubsets = []; // Reset for this iteration
+    prevNewSubsets = []; // Reset to store new subsets created in this iteration.
 
+    // Step 4: Create new subsets by adding nums[i] to each subset in sourceSubsets.
     for (const subset of sourceSubsets) {
-      const newSubset = [...subset, nums[i]];
-      newSubsets.push(newSubset);
-      prevNewSubsets.push(newSubset); // Store for next iteration to maintain order
+      const newSubset = [...subset, nums[i]]; // Append current number to the subset.
+      newSubsets.push(newSubset); // Store the new subset.
+      prevNewSubsets.push(newSubset); // Track newly created subsets for duplicate handling.
     }
 
+    // Step 5: Append all newly created subsets to the result.
     result.push(...newSubsets);
   }
 
