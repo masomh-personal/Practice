@@ -25,13 +25,23 @@ export function minWindow(pot, availableChars) {
 
   let requiredMatches = freqMapAvailableChars.size; // Unique characters to match
 
+  // Helper function to modify a frequency map value (increment/decrement)
+  // Assumes that the key already exists in the map (since it's pre-populated from `availableChars`)
+  // NOTE: we do not care about 'missing' keys as we are sure what will be passed in
+  // No need for checks
+  const manipulateMapValue = (map, key, delta) => {
+    if (map.has(key)) {
+      map.set(key, map.get(key) + delta);
+    }
+  };
+
   // Step 2: Expand right pointer to form a valid window
   while (right < pot.length) {
     const rightChar = pot[right];
 
     if (freqMapAvailableChars.has(rightChar)) {
       const rightCharCount = freqMapAvailableChars.get(rightChar);
-      freqMapAvailableChars.set(rightChar, rightCharCount - 1);
+      manipulateMapValue(freqMapAvailableChars, rightChar, -1);
 
       // When a character count reaches zero, it means all required occurrences are found
       if (rightCharCount === 1) requiredMatches--;
@@ -55,9 +65,9 @@ export function minWindow(pot, availableChars) {
         const leftCharCount = freqMapAvailableChars.get(leftChar);
 
         // If this character is at 0, removing it invalidates the window
-        if (!leftCharCount) requiredMatches++;
+        if (leftCharCount === 0) requiredMatches++; // Lost a fully matched character
 
-        freqMapAvailableChars.set(leftChar, leftCharCount + 1);
+        manipulateMapValue(freqMapAvailableChars, leftChar, 1);
       }
 
       left++; // SHRINK the window
