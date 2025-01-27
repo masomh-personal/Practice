@@ -1,4 +1,4 @@
-import { isHappy, isHappyFloyd } from './202_HappyNumber.js';
+import { isHappy, isHappyFloyd } from '../202_HappyNumber.js';
 
 describe('Leetcode #202: Happy Number', () => {
   const implementations = [
