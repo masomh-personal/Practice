@@ -49,11 +49,11 @@ export function maxDepthIterative(root) {
   if (!root) return 0;
 
   let maxDepth = 0; // Track the maximum depth
-  const stack = [{ node: root, depth: 1 }]; // Stack to simulate DFS, starting with the root
+  const stack = [[root, 1]]; // Stack to simulate DFS, starting with the root
 
   while (stack.length) {
     // Pop the top node and its depth from the stack
-    const { node: currNode, depth: currDepth } = stack.pop();
+    const [currNode, currDepth] = stack.pop();
 
     if (currNode) {
       // Update the maximum depth seen so far
@@ -61,12 +61,12 @@ export function maxDepthIterative(root) {
 
       // Push the left child onto the stack with incremented depth
       if (currNode.left) {
-        stack.push({ node: currNode.left, depth: currDepth + 1 });
+        stack.push([currNode.left, currDepth + 1]);
       }
 
       // Push the right child onto the stack with incremented depth
       if (currNode.right) {
-        stack.push({ node: currNode.right, depth: currDepth + 1 });
+        stack.push([currNode.right, currDepth + 1]);
       }
     }
   }
