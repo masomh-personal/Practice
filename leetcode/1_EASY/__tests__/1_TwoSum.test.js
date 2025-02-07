@@ -49,5 +49,16 @@ describe('Leetcode #1: Two Sum', () => {
       const result = twoSum(nums, target);
       expect(result).toEqual(expected);
     });
+
+    it('should return indices for a very large array with high variance in numbers', () => {
+      const nums = Array.from({ length: 1_000_000 }, (_, i) => i * 3 - 500_000); // Generates numbers with large gaps
+      nums[0] = 1;
+      nums[1] = 2;
+      const target = 3;
+      const expected = [0, 1];
+
+      const result = twoSum(nums, target);
+      expect(result).toEqual(expected);
+    });
   });
 });
