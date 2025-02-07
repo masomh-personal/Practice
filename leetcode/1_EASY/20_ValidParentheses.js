@@ -1,50 +1,34 @@
 /**
- * Checks if a string of brackets is valid based on matching pairs.
- *
- * Time Complexity: O(n), where n is the length of the string.
- * We iterate through the string once, performing O(1) stack operations per character.
- *
- * Space Complexity: O(n) in the worst case, where n is the length of the string.
- * In the worst-case scenario (e.g., all open brackets), all characters are stored in the stack.
+ * TIME: O(n) - We iterate through the string once, performing O(1) operations for each character.
+ * SPACE: O(n) - In the worst case, the stack holds all open brackets
  *
  * @param {string} s - Input string containing only '()', '{}', '[]'.
  * @return {boolean} - Returns true if the string is valid, otherwise false.
  */
-export const isValid = (s) => {
-  // Guard: if string length is odd, it cannot be balanced
-  if (s.length % 2 !== 0) return false;
+export function isValid(s) {
+  // Mapping of closing brackets to their corresponding opening brackets
+  const closedOpenMap = { ')': '(', '}': '{', ']': '[' };
 
-  // NOTE: could use a map here, but since the key is a string, it's better to use an Object without Map overhead
-  const bracketMap = {
-    ')': '(',
-    '}': '{',
-    ']': '[',
-  };
+  // Quick rejection: Odd-length strings are always invalid, and first char cannot be a closing bracket
+  if (s.length % 2 !== 0 || Reflect.has(closedOpenMap, s[0])) return false;
 
-  // Guard: fail if the first character is a closing bracket
-  if (s[0] in bracketMap) return false;
+  const stack = [s[0]]; // Stack to track unmatched opening brackets
 
-  // Stack to track open brackets
-  const stack = [s[0]];
-
-  // Process each character starting from the second
   for (let i = 1; i < s.length; i++) {
-    const currentBracket = s[i];
-    const isClosingBracket = currentBracket in bracketMap;
-    const topBracket = stack.at(-1);
+    const currBracket = s[i];
 
-    if (isClosingBracket && bracketMap[currentBracket] === topBracket) {
-      // Pop if there's a matching opening bracket at the stack's top
+    if (!Reflect.has(closedOpenMap, currBracket)) {
+      // If it's an opening bracket, push it onto the stack
+      stack.push(currBracket);
+    } else if (stack.at(-1) === closedOpenMap[currBracket]) {
+      // If it matches the last open bracket, pop the stack
       stack.pop();
-    } else if (!isClosingBracket) {
-      // Push any open brackets onto the stack
-      stack.push(currentBracket);
     } else {
-      // Invalid state if there's no match for a closing bracket
+      // If there's a mismatch, return false early
       return false;
     }
   }
 
-  // Return true if stack is empty (all brackets matched)
+  // If the stack is empty, all brackets were matched correctly
   return stack.length === 0;
-};
+}
