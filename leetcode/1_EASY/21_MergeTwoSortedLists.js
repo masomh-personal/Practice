@@ -20,30 +20,30 @@ export class ListNode {
  * @return {ListNode} - Head of the merged sorted linked list
  */
 export function mergeTwoLists(list1, list2) {
-  // Edge Case: If either list is null, return the non-null list
+  // If either list is empty, return the non-empty list (or null if both are empty)
   if (!list1) return list2;
   if (!list2) return list1;
 
-  // Create a dummy node to simplify pointer operations
-  let dummy = new ListNode(-1);
-  let curr = dummy;
+  // Dummy node to simplify list merging logic
+  let dummy = new ListNode(-Infinity);
+  let iterator = dummy;
 
-  // Merge both lists in sorted order
+  // Traverse both lists, attaching the smaller node at each step
   while (list1 && list2) {
     if (list1.val <= list2.val) {
-      curr.next = list1; // Attach the smaller node
-      list1 = list1.next; // Move to the next node in list1
+      iterator.next = list1;
+      list1 = list1.next;
     } else {
-      curr.next = list2; // Attach the smaller node
-      list2 = list2.next; // Move to the next node in list2
+      iterator.next = list2;
+      list2 = list2.next;
     }
-    curr = curr.next; // Move the iterator forward
+    iterator = iterator.next; // Move iterator forward
   }
 
-  // Attach any remaining nodes from either list
-  curr.next = list1 ?? list2;
+  // Attach remaining nodes (whichever list is non-null)
+  iterator.next = list1 ?? list2;
 
-  // Return the merged list, skipping the dummy node
+  // Return merged list (skipping the dummy node)
   return dummy.next;
 }
 
