@@ -1,5 +1,5 @@
 // NOTE: Leetcode already has this available, but wanted to create the class definition here for my use
-class ListNode {
+export class ListNode {
   constructor(val = 0, next = null) {
     this.val = val;
     this.next = next;
@@ -20,32 +20,31 @@ class ListNode {
  * @return {ListNode} - Head of the merged sorted linked list
  */
 export const mergeTwoLists = (list1, list2) => {
-  // Handle edge cases where one or both lists are empty
-  if (!list1 && !list2) return null; // Both lists are empty
-  if (!list1) return list2; // Return second list as-is
-  if (!list2) return list1; // Return first list as-is
+  // Edge Case: If either list is null, return the non-null list
+  if (!list1) return list2;
+  if (!list2) return list1;
 
-  // Create a dummy node to act as the head of the new list
-  const dummyNode = new ListNode(); // Dummy node
-  let newListIter = dummyNode; // Pointer to build the new list
+  // Create a dummy node to simplify pointer operations
+  let dummy = new ListNode(-1);
+  let curr = dummy;
 
-  // Merge lists while both have remaining nodes
+  // Merge both lists in sorted order
   while (list1 && list2) {
     if (list1.val <= list2.val) {
-      newListIter.next = list1; // Attach the smaller node
+      curr.next = list1; // Attach the smaller node
       list1 = list1.next; // Move to the next node in list1
     } else {
-      newListIter.next = list2; // Attach the smaller node
+      curr.next = list2; // Attach the smaller node
       list2 = list2.next; // Move to the next node in list2
     }
-    newListIter = newListIter.next; // Move to the newly added node
+    curr = curr.next; // Move the iterator forward
   }
 
-  // Attach any remaining nodes from list1 or list2
-  newListIter.next = list1 || list2;
+  // Attach any remaining nodes from either list
+  curr.next = list1 ?? list2;
 
-  // Return the head of the merged list (skipping the dummy node)
-  return dummyNode.next;
+  // Return the merged list, skipping the dummy node
+  return dummy.next;
 };
 
 /**

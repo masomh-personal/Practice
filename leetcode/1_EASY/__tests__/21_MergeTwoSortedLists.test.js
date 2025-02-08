@@ -1,14 +1,6 @@
-import { mergeTwoListsNaive, mergeTwoLists } from '../21_MergeTwoSortedLists.js';
+import { mergeTwoLists, mergeTwoListsNaive, ListNode } from '../21_MergeTwoSortedLists.js';
 
-// Class definition for ListNode (used in tests)
-class ListNode {
-  constructor(val = 0, next = null) {
-    this.val = val;
-    this.next = next;
-  }
-}
-
-// Helper function to convert array to linked list
+// Helper function to convert an array to a linked list
 function arrayToLinkedList(arr) {
   let dummy = new ListNode();
   let current = dummy;
@@ -19,7 +11,7 @@ function arrayToLinkedList(arr) {
   return dummy.next;
 }
 
-// Helper function to convert linked list to array
+// Helper function to convert a linked list to an array
 function linkedListToArray(head) {
   let result = [];
   while (head) {
@@ -29,78 +21,68 @@ function linkedListToArray(head) {
   return result;
 }
 
-// Common test cases for both implementations
-const testCases = [
-  {
-    description: 'merge [1,2,4] and [1,3,4]',
-    list1: [1, 2, 4],
-    list2: [1, 3, 4],
-    expected: [1, 1, 2, 3, 4, 4],
-  },
-  {
-    description: 'both lists empty',
-    list1: [],
-    list2: [],
-    expected: [],
-  },
-  {
-    description: 'one empty list and one non-empty list',
-    list1: [],
-    list2: [0],
-    expected: [0],
-  },
-  {
-    description: 'one empty list and one non-empty list (INVERSE)',
-    list1: [1],
-    list2: [],
-    expected: [1],
-  },
-  {
-    description: 'lists with negative values',
-    list1: [-10, -5, -3],
-    list2: [-8, -4, -2],
-    expected: [-10, -8, -5, -4, -3, -2],
-  },
-  {
-    description: 'lists with duplicate values',
-    list1: [1, 1, 1],
-    list2: [1, 1, 1],
-    expected: [1, 1, 1, 1, 1, 1],
-  },
-  {
-    description: 'lists with different lengths',
-    list1: [1, 2],
-    list2: [1, 3, 4, 5],
-    expected: [1, 1, 2, 3, 4, 5],
-  },
-  {
-    description: 'lists with large ranges of values',
-    list1: [-100, 0, 50],
-    list2: [-50, 25, 100],
-    expected: [-100, -50, 0, 25, 50, 100],
-  },
-];
+// Generalized function to run tests for both implementations
+function runTestImplementation(implementationFn, name) {
+  describe(`${name}`, () => {
+    it('should merge [1,2,4] and [1,3,4] correctly', () => {
+      const list1 = arrayToLinkedList([1, 2, 4]);
+      const list2 = arrayToLinkedList([1, 3, 4]);
+      const result = implementationFn(list1, list2);
+      expect(linkedListToArray(result)).toEqual([1, 1, 2, 3, 4, 4]);
+    });
 
-// Test Suite for Naive Approach
-describe('Merge Two Sorted Lists - Naive Approach', () => {
-  testCases.forEach(({ description, list1, list2, expected }) => {
-    it(`should ${description}`, () => {
-      const head1 = arrayToLinkedList(list1);
-      const head2 = arrayToLinkedList(list2);
-      const result = mergeTwoListsNaive(head1, head2);
+    it('should return an empty list when both lists are empty', () => {
+      const result = implementationFn(null, null);
+      expect(linkedListToArray(result)).toEqual([]);
+    });
+
+    it('should return the non-empty list when merging an empty list with a non-empty list', () => {
+      const list1 = arrayToLinkedList([]);
+      const list2 = arrayToLinkedList([0]);
+      const result = implementationFn(list1, list2);
+      expect(linkedListToArray(result)).toEqual([0]);
+    });
+
+    it('should merge lists with negative values correctly', () => {
+      const list1 = arrayToLinkedList([-10, -5, -3]);
+      const list2 = arrayToLinkedList([-8, -4, -2]);
+      const result = implementationFn(list1, list2);
+      expect(linkedListToArray(result)).toEqual([-10, -8, -5, -4, -3, -2]);
+    });
+
+    it('should merge lists with duplicate values correctly', () => {
+      const list1 = arrayToLinkedList([1, 1, 1]);
+      const list2 = arrayToLinkedList([1, 1, 1]);
+      const result = implementationFn(list1, list2);
+      expect(linkedListToArray(result)).toEqual([1, 1, 1, 1, 1, 1]);
+    });
+
+    it('should merge lists with different lengths correctly', () => {
+      const list1 = arrayToLinkedList([1, 2]);
+      const list2 = arrayToLinkedList([1, 3, 4, 5]);
+      const result = implementationFn(list1, list2);
+      expect(linkedListToArray(result)).toEqual([1, 1, 2, 3, 4, 5]);
+    });
+
+    it('should merge lists with large ranges of values correctly', () => {
+      const list1 = arrayToLinkedList([-100, 0, 50]);
+      const list2 = arrayToLinkedList([-50, 25, 100]);
+      const result = implementationFn(list1, list2);
+      expect(linkedListToArray(result)).toEqual([-100, -50, 0, 25, 50, 100]);
+    });
+
+    it('should merge two very long sorted lists (50 nodes each)', () => {
+      const list1 = arrayToLinkedList(Array.from({ length: 50 }, (_, i) => i * 2)); // Even numbers
+      const list2 = arrayToLinkedList(Array.from({ length: 50 }, (_, i) => i * 2 + 1)); // Odd numbers
+      const result = implementationFn(list1, list2);
+      const expected = Array.from({ length: 100 }, (_, i) => i); // Merged sorted list [0,1,2,3,...,99]
       expect(linkedListToArray(result)).toEqual(expected);
     });
   });
-});
+}
 
-// Test Suite for Optimized Approach
-describe('Merge Two Sorted Lists - Optimized Approach', () => {
-  testCases.forEach(({ description, list1, list2, expected }) => {
-    it(`should ${description}`, () => {
-      const head1 = arrayToLinkedList(list1);
-      const head2 = arrayToLinkedList(list2);
-      const result = mergeTwoLists(head1, head2);
-      expect(linkedListToArray(result)).toEqual(expected);
-    });
-  });
+// Run tests for both implementations
+describe('Leetcode #21: Merge Two Sorted Lists', () => {
+  runTestImplementation(mergeTwoLists, 'Optimized Approach');
+  runTestImplementation(mergeTwoListsNaive, 'Naive Approach');
 });
