@@ -19,7 +19,7 @@ export class ListNode {
  * @param {ListNode} list2 - Head of the second sorted linked list
  * @return {ListNode} - Head of the merged sorted linked list
  */
-export const mergeTwoLists = (list1, list2) => {
+export function mergeTwoLists(list1, list2) {
   // Edge Case: If either list is null, return the non-null list
   if (!list1) return list2;
   if (!list2) return list1;
@@ -45,7 +45,7 @@ export const mergeTwoLists = (list1, list2) => {
 
   // Return the merged list, skipping the dummy node
   return dummy.next;
-};
+}
 
 /**
  * Naive Approach to Merge Two Sorted Lists (Non-Mutating)
@@ -62,7 +62,7 @@ export const mergeTwoLists = (list1, list2) => {
  * @param {ListNode} list2 - Head of the second sorted linked list
  * @return {ListNode} - Head of the merged sorted linked list
  */
-export const mergeTwoListsNaive = (list1, list2) => {
+export function mergeTwoListsNaive(list1, list2) {
   // Handle edge cases where one or both lists are empty
   if (!list1 && !list2) return null; // Both lists are empty
   if (!list1) return list2; // Return second list as-is
@@ -105,4 +105,4 @@ export const mergeTwoListsNaive = (list1, list2) => {
 
   // Return the head of the new sorted linked list
   return dummy.next;
-};
+}
