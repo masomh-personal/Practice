@@ -102,4 +102,40 @@ describe('Leetcode #23: Merge k Sorted Lists', () => {
       });
     });
   });
+
+  // =================================================================================
+  // SKIP: Extreme performance testing
+  // LATEST TEST RESULTS (for 1.5m total nodes)
+  // Naive: 127.656ms
+  // Optimized: 12.295ms
+  describe.skip('Extreme Performance Test for mergeKListsNaive & mergeKLists', () => {
+    const LIST_SIZE = 5e5;
+    const THIRD_START_POINT = LIST_SIZE * 2;
+    const TOTAL_SIZE = LIST_SIZE * 3;
+
+    it(`should efficiently merge enormous lists ${TOTAL_SIZE.toLocaleString()} total nodes and log performance`, () => {
+      const lists = [
+        createLinkedList(Array.from({ length: LIST_SIZE }, (_, i) => i * 2)),
+        createLinkedList(Array.from({ length: LIST_SIZE }, (_, i) => i * 2 + 1)),
+        createLinkedList(Array.from({ length: LIST_SIZE }, (_, i) => THIRD_START_POINT + i)),
+      ];
+      const expected = Array.from({ length: TOTAL_SIZE }, (_, i) => i);
+
+      console.log('\n--- Extreme Performance Test ---');
+
+      // Measure performance for naive approach
+      console.time('Naive mergeKListsNaive');
+      const naiveResult = mergeKListsNaive([...lists]); // Clone lists to avoid modification side effects
+      console.timeEnd('Naive mergeKListsNaive');
+
+      expect(linkedListToArray(naiveResult)).toEqual(expected);
+
+      // Measure performance for optimized approach
+      console.time('Optimized mergeKLists');
+      const optimizedResult = mergeKLists([...lists]); // Clone lists to avoid modification side effects
+      console.timeEnd('Optimized mergeKLists');
+
+      expect(linkedListToArray(optimizedResult)).toEqual(expected);
+    });
+  });
 });
