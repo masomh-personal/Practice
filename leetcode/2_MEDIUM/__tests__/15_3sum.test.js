@@ -90,4 +90,64 @@ describe('Leetcode #15: 3Sum', () => {
       });
     });
   });
+
+  // SKIPPING this because how crazy a difference this can be
+  // For an array of size 30k (console output below)
+  // ----- Performance Test -----
+  // Naive threeSum Execution Time: 104.40s
+  // Optimized threeSum Execution Time: 49.48ms
+  // Optimized approach is 2109.86x faster.
+  describe.skip('Performance Testing', () => {
+    it('should run efficiently on a very large array', () => {
+      console.log('----- Performance Test -----');
+
+      const ARRAY_SIZE = 30_000;
+      const largeArray = Array.from(
+        { length: ARRAY_SIZE },
+        () => Math.floor(Math.random() * 2001) - 1000
+      );
+
+      // Utility function to format execution time
+      const formatTime = (timeMs) =>
+        timeMs >= 1000 ? `${(timeMs / 1000).toFixed(2)}s` : `${timeMs.toFixed(2)}ms`;
+
+      // Measure naive execution time
+      const startNaive = performance.now();
+      const naiveResult = threeSumNaive(largeArray);
+      const naiveTime = performance.now() - startNaive;
+
+      // Measure optimized execution time
+      const startOptimized = performance.now();
+      const optimizedResult = threeSum(largeArray);
+      const optimizedTime = performance.now() - startOptimized;
+
+      // Convert triplets into a Set of sorted string representations
+      const normalizeToSet = (arr) =>
+        new Set(
+          arr.map((triplet) =>
+            triplet
+              .slice()
+              .sort((a, b) => a - b)
+              .join(',')
+          )
+        );
+
+      const naiveSet = normalizeToSet(naiveResult);
+      const optimizedSet = normalizeToSet(optimizedResult);
+
+      // Log performance results with proper formatting
+      console.log(`Naive threeSum Execution Time: ${formatTime(naiveTime)}`);
+      console.log(`Optimized threeSum Execution Time: ${formatTime(optimizedTime)}`);
+      console.log(`Optimized approach is ${(naiveTime / optimizedTime).toFixed(2)}x faster.`);
+
+      // Log mismatch details if necessary
+      if (naiveSet.size !== optimizedSet.size) {
+        console.log('Mismatch in triplet counts');
+        console.log('Naive result count:', naiveSet.size);
+        console.log('Optimized result count:', optimizedSet.size);
+      }
+
+      expect(naiveSet).toEqual(optimizedSet);
+    });
+  });
 });
