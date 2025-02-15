@@ -67,11 +67,72 @@ describe('Leetcode #704: Binary Search', () => {
       const result = binarySearch([-10, -5, -2, 0, 3, 7], -2);
       expect(result).toBe(2);
     });
+  });
 
-    it('should correctly handle a large array', () => {
-      const largeArray = Array.from({ length: 100_000 }, (_, i) => i);
-      const result = binarySearch(largeArray, 75_000);
-      expect(result).toBe(75_000);
+  describe('Performance test versus traditional linear, custom two-pointer "linear search", and binary search', () => {
+    /**
+     * Traditional linear search: Iterates from start to end to find the target.
+     * Time Complexity: O(n) - Worst case, scans the entire array.
+     *
+     * @param {number[]} nums - The sorted array
+     * @param {number} target - The number to search for
+     * @returns {number} - Index of the target or -1 if not found
+     */
+    function linearSearch(nums, target) {
+      for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === target) return i;
+      }
+      return -1;
+    }
+
+    /**
+     * Two-pointer linear search: Scans from both ends towards the middle.
+     * Time Complexity: O(n/2) ≈ O(n) - Still linear, but reduces average iterations by half.
+     *
+     * @param {number[]} nums - The sorted array
+     * @param {number} target - The number to search for
+     * @returns {number} - Index of the target or -1 if not found
+     */
+    function linearSearchV2(nums, target) {
+      let left = 0;
+      let right = nums.length - 1;
+
+      while (left <= right) {
+        if (nums[left] === target) {
+          return left;
+        } else if (nums[right] === target) {
+          return right;
+        }
+        left++;
+        right--;
+      }
+      return -1;
+    }
+
+    it('should correctly handle a large array [Performance Test]', () => {
+      const SIZE = 1e6;
+      const TARGET = Math.floor(SIZE * 0.75);
+      const largeArray = Array.from({ length: SIZE }, (_, i) => i);
+
+      console.log(
+        `\nRunning Performance Test on Array of Size: ${SIZE.toLocaleString()}\nSearching for Target: ${TARGET.toLocaleString()}\n`
+      );
+
+      console.time('Binary Search Time');
+      const binaryResult = binarySearch(largeArray, TARGET);
+      console.timeEnd('Binary Search Time');
+
+      console.time('Traditional Linear Search Time');
+      const linearResult = linearSearch(largeArray, TARGET);
+      console.timeEnd('Traditional Linear Search Time');
+
+      console.time('Two-Pointer Linear Search Time');
+      const linearV2Result = linearSearchV2(largeArray, TARGET);
+      console.timeEnd('Two-Pointer Linear Search Time');
+
+      expect(binaryResult).toBe(TARGET);
+      expect(linearResult).toBe(TARGET);
+      expect(linearV2Result).toBe(TARGET);
     });
   });
 });
