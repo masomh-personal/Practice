@@ -1,54 +1,74 @@
-import { productExceptSelf, productExceptSelfNaive } from '../238_ProductArrayExceptSelf.js'; // Replace with actual path to your solution file
+import { productExceptSelf } from '../238_ProductArrayExceptSelf.js'; // Replace with actual path to your solution file
 
-describe('productExceptSelf', () => {
-  it('should return [24,12,8,6] for input [1,2,3,4]', () => {
-    const nums = [1, 2, 3, 4];
-    const expected = [24, 12, 8, 6];
-    expect(productExceptSelf(nums)).toEqual(expected);
-    expect(productExceptSelfNaive(nums)).toEqual(expected);
+describe('Leetcode #238: Product of Array Except Self', () => {
+  describe('Basic functionality', () => {
+    it('should return the product of array except self for positive numbers', () => {
+      const nums = [1, 2, 3, 4];
+      const result = productExceptSelf(nums);
+      const expected = [24, 12, 8, 6];
+      expect(result).toEqual(expected);
+    });
+
+    it('should return the correct output when the array contains a zero', () => {
+      const nums = [1, 2, 0, 4];
+      const result = productExceptSelf(nums);
+      const expected = [0, 0, 8, 0];
+      expect(result).toEqual(expected);
+    });
+
+    it('should return all zeros when the array contains more than one zero', () => {
+      const nums = [0, 1, 2, 0];
+      const result = productExceptSelf(nums);
+      const expected = [0, 0, 0, 0];
+      expect(result).toEqual(expected);
+    });
   });
 
-  it('should return [4800,3840,19200,2400,9600,1920,3200] for input [4,5,1,8,2,10,6]', () => {
-    const nums = [4, 5, 1, 8, 2, 10, 6];
-    const expected = [4800, 3840, 19200, 2400, 9600, 1920, 3200];
-    expect(productExceptSelf(nums)).toEqual(expected);
-    expect(productExceptSelfNaive(nums)).toEqual(expected);
+  describe('Edge cases', () => {
+    it('should handle arrays of length 2', () => {
+      const nums = [3, 4];
+      const result = productExceptSelf(nums);
+      const expected = [4, 3];
+      expect(result).toEqual(expected);
+    });
+
+    it('should return correct output for negative numbers', () => {
+      const nums = [-1, -2, -3, -4];
+      const result = productExceptSelf(nums);
+      const expected = [-24, -12, -8, -6];
+      expect(result).toEqual(expected);
+    });
   });
 
-  it('should return [0,0,9,0,0] for input [-1,1,0,-3,3]', () => {
-    const nums = [-1, 1, 0, -3, 3];
-    const expected = [0, 0, 9, 0, 0];
-    const result = productExceptSelf(nums);
-    const resultNaive = productExceptSelfNaive(nums);
-    expect(result.every((num, idx) => num === expected[idx])).toBe(true);
-    expect(resultNaive.every((num, idx) => num === expected[idx])).toBe(true);
+  describe('Special cases', () => {
+    it('should handle all ones', () => {
+      const nums = [1, 1, 1, 1];
+      const result = productExceptSelf(nums);
+      const expected = [1, 1, 1, 1];
+      expect(result).toEqual(expected);
+    });
+
+    it('should handle a mix of positive and negative numbers', () => {
+      const nums = [1, -2, 3, -4];
+      const result = productExceptSelf(nums);
+      const expected = [24, -12, 8, -6];
+      expect(result).toEqual(expected);
+    });
   });
 
-  it('should return [1] for input [1]', () => {
-    const nums = [1];
-    const expected = [1];
-    expect(productExceptSelf(nums)).toEqual(expected);
-    expect(productExceptSelfNaive(nums)).toEqual(expected);
-  });
+  describe('Extreme performance cases', () => {
+    it('should handle a large input size efficiently', () => {
+      const nums = Array(100_000).fill(1);
+      const result = productExceptSelf(nums);
+      const expected = Array(100_000).fill(1);
+      expect(result).toEqual(expected);
+    });
 
-  it('should handle negative numbers correctly', () => {
-    const nums = [-2, -3, -4];
-    const expected = [12, 8, 6];
-    expect(productExceptSelf(nums)).toEqual(expected);
-    expect(productExceptSelfNaive(nums)).toEqual(expected);
-  });
-
-  it('should handle array with two elements', () => {
-    const nums = [2, 3];
-    const expected = [3, 2];
-    expect(productExceptSelf(nums)).toEqual(expected);
-    expect(productExceptSelfNaive(nums)).toEqual(expected);
-  });
-
-  it('should handle large input size efficiently', () => {
-    const nums = Array(100000).fill(1); // Test for large input size
-    const expected = Array(100000).fill(1);
-    expect(productExceptSelf(nums)).toEqual(expected);
-    expect(productExceptSelfNaive(nums)).toEqual(expected);
+    it('should handle all elements as zero', () => {
+      const nums = Array(100_000).fill(0);
+      const result = productExceptSelf(nums);
+      const expected = Array(100_000).fill(0);
+      expect(result).toEqual(expected);
+    });
   });
 });
