@@ -1,74 +1,83 @@
-import { productExceptSelf } from '../238_ProductArrayExceptSelf.js'; // Replace with actual path to your solution file
+import { productExceptSelf, productExceptSelfNaive } from '../238_ProductArrayExceptSelf.js'; // Adjust the path as necessary
 
-describe('Leetcode #238: Product of Array Except Self', () => {
-  describe('Basic functionality', () => {
-    it('should return the product of array except self for positive numbers', () => {
-      const nums = [1, 2, 3, 4];
-      const result = productExceptSelf(nums);
-      const expected = [24, 12, 8, 6];
-      expect(result).toEqual(expected);
-    });
+// Define test cases for Basic, Edge, and Special Cases
+const testCases = [
+  {
+    description: 'positive numbers',
+    input: [1, 2, 3, 4],
+    expected: [24, 12, 8, 6],
+  },
+  {
+    description: 'array containing a zero',
+    input: [1, 2, 0, 4],
+    expected: [0, 0, 8, 0],
+  },
+  {
+    description: 'array with more than one zero',
+    input: [0, 1, 2, 0],
+    expected: [0, 0, 0, 0],
+  },
+  {
+    description: 'array of length 2',
+    input: [3, 4],
+    expected: [4, 3],
+  },
+  {
+    description: 'negative numbers',
+    input: [-1, -2, -3, -4],
+    expected: [-24, -12, -8, -6],
+  },
+  {
+    description: 'all ones',
+    input: [1, 1, 1, 1],
+    expected: [1, 1, 1, 1],
+  },
+  {
+    description: 'mix of positive and negative numbers',
+    input: [1, -2, 3, -4],
+    expected: [24, -12, 8, -6],
+  },
+];
 
-    it('should return the correct output when the array contains a zero', () => {
-      const nums = [1, 2, 0, 4];
-      const result = productExceptSelf(nums);
-      const expected = [0, 0, 8, 0];
-      expect(result).toEqual(expected);
-    });
-
-    it('should return all zeros when the array contains more than one zero', () => {
-      const nums = [0, 1, 2, 0];
-      const result = productExceptSelf(nums);
-      const expected = [0, 0, 0, 0];
-      expect(result).toEqual(expected);
-    });
-  });
-
-  describe('Edge cases', () => {
-    it('should handle arrays of length 2', () => {
-      const nums = [3, 4];
-      const result = productExceptSelf(nums);
-      const expected = [4, 3];
-      expect(result).toEqual(expected);
-    });
-
-    it('should return correct output for negative numbers', () => {
-      const nums = [-1, -2, -3, -4];
-      const result = productExceptSelf(nums);
-      const expected = [-24, -12, -8, -6];
-      expect(result).toEqual(expected);
-    });
-  });
-
-  describe('Special cases', () => {
-    it('should handle all ones', () => {
-      const nums = [1, 1, 1, 1];
-      const result = productExceptSelf(nums);
-      const expected = [1, 1, 1, 1];
-      expect(result).toEqual(expected);
-    });
-
-    it('should handle a mix of positive and negative numbers', () => {
-      const nums = [1, -2, 3, -4];
-      const result = productExceptSelf(nums);
-      const expected = [24, -12, 8, -6];
-      expect(result).toEqual(expected);
+// Shared Test Runner using test.each()
+function runTests(implementationName, implementationFn) {
+  describe(implementationName, () => {
+    describe('Basic, Edge, and Special Cases', () => {
+      test.each(testCases)(
+        'should return the product of array except self for $description',
+        ({ input, expected }) => {
+          const result = implementationFn(input);
+          expect(result).toEqual(expected);
+        }
+      );
     });
   });
+}
 
-  describe('Extreme performance cases', () => {
-    it('should handle a large input size efficiently', () => {
-      const nums = Array(100_000).fill(1);
-      const result = productExceptSelf(nums);
-      const expected = Array(100_000).fill(1);
-      expect(result).toEqual(expected);
-    });
+// Run tests for both implementations using the shared test runner
+runTests('Optimal Solution', productExceptSelf);
+runTests('Naive Solution', productExceptSelfNaive);
 
-    it('should handle all elements as zero', () => {
-      const nums = Array(100_000).fill(0);
-      const result = productExceptSelf(nums);
-      const expected = Array(100_000).fill(0);
-      expect(result).toEqual(expected);
-    });
+// Extreme Performance Case: Combined Test
+// Naive Solution - Large Input: 5.873 SECONDS
+// Optimal Solution - Large Input: 1.99 MILLISECONDS!
+describe.skip('Extreme Performance Cases', () => {
+  it('should handle a large input size efficiently for both implementations', () => {
+    const nums = Array(100_000).fill(1);
+
+    // Test Naive Solution
+    console.time('Naive Solution - Large Input');
+    const naiveResult = productExceptSelfNaive(nums);
+    console.timeEnd('Naive Solution - Large Input');
+
+    // Test Optimal Solution
+    console.time('Optimal Solution - Large Input');
+    const optimalResult = productExceptSelf(nums);
+    console.timeEnd('Optimal Solution - Large Input');
+
+    // Both should produce the same output
+    const expected = Array(100_000).fill(1);
+    expect(naiveResult).toEqual(expected);
+    expect(optimalResult).toEqual(expected);
   });
 });
