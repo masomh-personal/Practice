@@ -6,29 +6,29 @@
  * @return {number} - Length of the longest substring without repeating characters.
  */
 export function lengthOfLongestSubstring(str) {
+  // Guard: edge case when str.length equals 0 or 1
   const n = str.length;
-
-  // Edge case: If string is empty or contains only one character, return its length
   if (n <= 1) return n;
 
-  let longest = 0; // Variable to store the length of the longest substring
-  const charIdxMap = new Map(); // HashMap to store the last seen position of each character
+  let longest = 0; // result variable to return at end
+  let left = 0; // left pointer
+  const seenMapRecentIdx = new Map(); // char => most recent idx map
 
-  // Two-pointer technique with `left` and `right` pointers
-  for (let left = 0, right = 0; right < n; right++) {
-    const currRightChar = str[right];
+  for (let right = 0; right < n; right++) {
+    const rightChar = str[right];
 
-    // If the current character is already in the map, update the `left` pointer
-    if (charIdxMap.has(currRightChar)) {
-      // Move `left` to the maximum of its current position or the position after the duplicate
-      left = Math.max(left, charIdxMap.get(currRightChar) + 1);
+    // Check if rightChar has been seen and is within the current window
+    if (seenMapRecentIdx.has(rightChar) && seenMapRecentIdx.get(rightChar) >= left) {
+      // Move left pointer just past the last occurrence of rightChar by 1
+      left = seenMapRecentIdx.get(rightChar) + 1;
     }
 
-    // Update the longest substring length using the current window size
+    // Update the longest substring length
+    // NOTE: + 1 because we have to also include current character
     longest = Math.max(longest, right - left + 1);
 
-    // Store the current character's position in the map
-    charIdxMap.set(currRightChar, right);
+    // Update the map with the current index of rightChar
+    seenMapRecentIdx.set(rightChar, right);
   }
 
   return longest;
