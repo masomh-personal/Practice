@@ -1,4 +1,4 @@
-import { miniMaxSum } from '../MiniMaxSum.js';
+import { miniMaxSum } from '../mini-max-sum.js';
 
 describe('HackerRank: Mini-Max Sum', () => {
   describe('Basic Functionality', () => {

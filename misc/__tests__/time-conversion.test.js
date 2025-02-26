@@ -1,4 +1,4 @@
-import { timeConversion } from '../TimeConversion.js';
+import { timeConversion } from '../time-conversion.js';
 
 describe('HackerRank: Time Conversion', () => {
   describe('Basic Functionality', () => {

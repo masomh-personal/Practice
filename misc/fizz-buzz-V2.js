@@ -4,7 +4,7 @@
  * @param {number} n - The upper limit of the FizzBuzz sequence
  * @return {Array<string|number>} - Array of FizzBuzz results
  */
-export function fizzBuzz(n) {
+export function fizzBuzzV2(n) {
   const overallResults = []; // Store the results to return
 
   for (let i = 1; i <= n; i++) {

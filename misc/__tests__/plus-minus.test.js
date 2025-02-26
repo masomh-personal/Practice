@@ -1,4 +1,4 @@
-import { plusMinus } from '../PlusMinus.js';
+import { plusMinus } from '../plus-minus.js';
 
 describe('HackerRank: Plus Minus', () => {
   describe('Basic Functionality', () => {
