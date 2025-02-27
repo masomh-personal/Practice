@@ -1,6 +1,5 @@
 import { valid } from '../Luhn.js';
 
-// Leetcode-style parent/head describe block for consistency
 describe('Exercism: Luhn', () => {
   describe('Invalid Luhn Numbers', () => {
     it('should return false for single digit strings', () => {
