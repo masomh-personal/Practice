@@ -1,6 +1,4 @@
 /**
- * Checks if a string is a valid Luhn number
- *
  * @param {string} str - The input string to validate
  * @returns {boolean} - True if valid, False otherwise
  */
@@ -19,23 +17,21 @@ export const valid = (str) => {
   // Guard: After normalization, the length should be greater than 1
   if (normalized.length <= 1) return false;
 
-  // Step #1: Combine doubling and summation in a single loop (we don't need to map to Numbers)
-  let sum = 0;
+  // Step #1: Combine doubling and summation using reduceRight
   const n = normalized.length;
-  for (let i = n - 1; i >= 0; i--) {
-    let digit = Number(normalized[i]);
 
+  const sum = [...normalized].reduceRight((acc, num, idx) => {
+    let digit = Number(num);
     // Double every second digit from the right
-    if ((n - i) % 2 === 0) {
+    if ((n - idx) % 2 === 0) {
       digit *= 2;
       if (digit > 9) {
         digit -= 9;
       }
     }
-
     // Accumulate the sum
-    sum += digit;
-  }
+    return acc + digit;
+  }, 0);
 
   // Step #2: Check if the sum is divisible by 10
   return sum % 10 === 0;
