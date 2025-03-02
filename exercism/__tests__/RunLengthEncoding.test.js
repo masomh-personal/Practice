@@ -85,5 +85,14 @@ describe('Exercism: Run-Length Encoding', () => {
       const expected = 'zzz ZZ  zZ';
       expect(result).toEqual(expected);
     });
+
+    it('should return the original string when encoding followed by decoding (Large String)', () => {
+      const originalLongString = 'a'.repeat(1000) + 'b'.repeat(500) + 'c'.repeat(250);
+      const encoded = encode(originalLongString);
+      const expectedEncoded = '1000a500b250c';
+      expect(encoded).toEqual(expectedEncoded);
+      const decoded = decode(encoded);
+      expect(decoded).toEqual(originalLongString);
+    });
   });
 });

@@ -56,7 +56,7 @@ export const decode = (str) => {
     const char = str[seeker]; // The actual character to be repeated
 
     // Expand the character based on the parsed count and push to the decoded array
-    decoded.push(...Array(count).fill(char));
+    decoded.push(char.repeat(count));
 
     seeker++; // Move to the next character
   }
