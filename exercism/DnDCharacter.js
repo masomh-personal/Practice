@@ -34,15 +34,17 @@ export class Character {
   }
 
   #init() {
-    // Roll for each ability score except HP
-    for (const stat of ['str', 'dex', 'con', 'int', 'wis', 'cha']) {
-      const rolledScore = Character.rollAbility();
-      this.#STATS_MAP.set(stat, rolledScore);
+    // Roll for each ability score except HP (we can use the stat map dynamically)
+    for (const [stat, _] of this.#STATS_MAP) {
+      if (stat === 'hp') {
+        // Special stat: calculate HP using constitution modifier
+        const constModifier = abilityModifier(this.constitution); // con will already be calculated
+        this.#STATS_MAP.set('hp', this.#DEFAULT_HP + constModifier);
+      } else {
+        const rolledScore = Character.rollAbility();
+        this.#STATS_MAP.set(stat, rolledScore);
+      }
     }
-
-    // Calculate HP using constitution modifier
-    const constModifier = abilityModifier(this.constitution);
-    this.#STATS_MAP.set('hp', this.#DEFAULT_HP + constModifier);
   }
 
   static rollAbility(allowedRolls = 4, maxDiceVal = 6) {
