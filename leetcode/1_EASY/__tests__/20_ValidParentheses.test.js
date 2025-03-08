@@ -73,5 +73,18 @@ describe('Leetcode #20: Valid Parentheses', () => {
       const largeInvalidString = '('.repeat(5000) + ')'.repeat(5000);
       expect(isValid(largeInvalidString)).toBe(true);
     });
+
+    // Unique invalid use case
+    it('should correctly handle single character processed twice due to stack initialization', () => {
+      // This test specifically targets the bug where the first character
+      // is added to the stack and then processed again in the loop
+
+      const input = '{[';
+      expect(isValid(input)).toBe(false); // It should be false, but your bug might make it behave differently
+
+      // Additional test with matching pairs but bug would cause mismatch
+      const input2 = '()';
+      expect(isValid(input2)).toBe(true);
+    });
   });
 });

@@ -9,18 +9,22 @@ export function isValid(s) {
   // Mapping of closing brackets to their corresponding opening brackets
   const closedOpenMap = { ')': '(', '}': '{', ']': '[' };
 
-  // Quick rejection: Odd-length strings are always invalid, and first char cannot be a closing bracket
-  if (s.length % 2 !== 0 || Reflect.has(closedOpenMap, s[0])) return false;
+  // Quick rejection: Odd-length strings are always invalid
+  if (s.length % 2 !== 0) return false;
 
-  const stack = [s[0]]; // Stack to track unmatched opening brackets
+  // Empty string is valid according to LeetCode's definition
+  if (s.length === 0) return true;
 
-  for (let i = 1; i < s.length; i++) {
-    const currBracket = s[i];
+  // Early rejection if first char is a closing bracket
+  if (Reflect.has(closedOpenMap, s[0])) return false;
 
+  const stack = []; // Stack to track unmatched opening brackets
+
+  for (const currBracket of s) {
     if (!Reflect.has(closedOpenMap, currBracket)) {
       // If it's an opening bracket, push it onto the stack
       stack.push(currBracket);
-    } else if (stack.at(-1) === closedOpenMap[currBracket]) {
+    } else if (stack.length > 0 && stack[stack.length - 1] === closedOpenMap[currBracket]) {
       // If it matches the last open bracket, pop the stack
       stack.pop();
     } else {
