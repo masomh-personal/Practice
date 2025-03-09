@@ -56,16 +56,30 @@ describe('isPalindrome function', () => {
   });
 
   describe('Performance Tests', () => {
+    // Define constants for test configuration
+    const REPEAT_COUNT = 1e5; // Using scientific notation for clarity
+    const MIDDLE_CHAR = 'b';
+    const REPEATED_CHAR = 'a';
+
     it('should handle a very long palindromic string with a character in the middle without errors', () => {
-      const input = 'a'.repeat(10 ** 5) + 'b' + 'a'.repeat(10 ** 5);
+      // Build a palindrome: many 'a's + one 'b' + many 'a's
+      const input =
+        REPEATED_CHAR.repeat(REPEAT_COUNT) + MIDDLE_CHAR + REPEATED_CHAR.repeat(REPEAT_COUNT);
       const result = isPalindrome(input);
-      expect(result).toBe(true); // Correctly expects true since it's a palindrome
+
+      // The string is a perfect palindrome, so we expect true
+      expect(result).toBe(true);
     });
 
-    it('should return true for a very long palindrome string', () => {
-      const input = 'a'.repeat(10 ** 5) + 'b' + 'a'.repeat(10 ** 5);
-      const alteredInput = input.replace(/b/g, ''); // Still a palindrome after removing "b"
-      const result = isPalindrome(alteredInput);
+    it('should return true for a very long uniform palindrome string', () => {
+      // First build the string with middle character
+      const inputWithMiddle =
+        REPEATED_CHAR.repeat(REPEAT_COUNT) + MIDDLE_CHAR + REPEATED_CHAR.repeat(REPEAT_COUNT);
+
+      // Then remove the middle character to create a uniform string
+      const uniformInput = inputWithMiddle.replace(new RegExp(MIDDLE_CHAR, 'g'), '');
+
+      const result = isPalindrome(uniformInput);
       expect(result).toBe(true);
     });
   });

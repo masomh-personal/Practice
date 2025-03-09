@@ -1,32 +1,47 @@
 /**
  * Checks if a string is a palindrome, ignoring non-alphanumeric characters and case.
  *
- * Time Complexity: O(n) - Processing each character once for normalization and palindrome check.
- * Space Complexity: O(m) - Storing only alphanumeric characters, where m <= n.
+ * Time Complexity: O(n) - We process each character at most once.
+ * Space Complexity: O(1) - We use constant extra space regardless of input size.
  *
- * @param {string} s - The input string.
+ * @param {string} s - The input string to check.
  * @return {boolean} - Returns true if the string is a palindrome; otherwise, false.
  */
-export const isPalindrome = (s) => {
-  // Convert to lowercase and then remove non-alphanumeric characters.
-  // Using `replace` here instead of `match` is more efficient since `replace`
-  // directly returns a single normalized string without creating an intermediate array.
-  const normalizedString = s.toLowerCase().replace(/[^a-z0-9]/g, '');
-
-  // If only one or zero alphanumeric characters, it’s a palindrome by default
-  if (normalizedString.length <= 1) return true;
-
-  // Two-pointer approach to check palindrome properties
-  let leftIdx = 0;
-  let rightIdx = normalizedString.length - 1;
-
-  while (leftIdx < rightIdx) {
-    if (normalizedString[leftIdx] !== normalizedString[rightIdx]) {
-      return false; // Mismatch found, not a palindrome
-    }
-    leftIdx++;
-    rightIdx--;
+export function isPalindrome(s) {
+  // Validate input is a string
+  if (typeof s !== 'string') {
+    throw new TypeError('Input must be a string');
   }
 
-  return true; // All characters matched, it's a palindrome
-};
+  // Define regex pattern once for reuse
+  const alphanumericPattern = /[a-zA-Z0-9]/;
+
+  // Use two pointers to compare characters from both ends
+  let left = 0;
+  let right = s.length - 1;
+
+  // Check in one pass without normalizing first
+  while (left < right) {
+    // Skip non-alphanumeric characters from left side
+    if (!alphanumericPattern.test(s[left])) {
+      left++;
+      continue;
+    }
+
+    // Skip non-alphanumeric characters from right side
+    if (!alphanumericPattern.test(s[right])) {
+      right--;
+      continue;
+    }
+
+    // Compare characters (case-insensitive)
+    if (s[left].toLowerCase() !== s[right].toLowerCase()) {
+      return false;
+    }
+
+    left++;
+    right--;
+  }
+
+  return true;
+}
