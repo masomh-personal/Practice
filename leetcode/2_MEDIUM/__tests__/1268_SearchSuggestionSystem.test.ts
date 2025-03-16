@@ -1,4 +1,5 @@
-import { suggestedProducts } from '../1268_SearchSuggestionSystem';
+//import { suggestedProducts } from '../1268_SearchSuggestionSystem';
+import { suggestedProducts } from '../1268_SearchSuggestionSystemV2';
 
 describe('Leetcode #1268: Search Suggestions System', () => {
   describe('Function: suggestedProducts', () => {
