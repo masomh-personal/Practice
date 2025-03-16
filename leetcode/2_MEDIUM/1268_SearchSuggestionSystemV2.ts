@@ -1,11 +1,14 @@
 /**
- * Trie (Prefix Tree) approach
+ * Trie (Prefix Tree) approach – Optimized
  *
- * Time Complexity: O(n × l log 3 + m), where:
+ * Time Complexity: O(n log n + n × l + m), where:
  *   - n = number of products
- *   - l = average product length (for insert)
- *   - m = length of searchWord (for prefix traversal)
- *   - log 3 is constant due to sorting max 3 suggestions
+ *   - l = average product length
+ *   - m = length of searchWord
+ *
+ * - O(n log n) for global sort
+ * - O(n × l) to insert each product (no sorting in insert)
+ * - O(m) to traverse searchWord
  *
  * Space Complexity: O(n × l), for Trie nodes and stored suggestions
  *
@@ -16,12 +19,13 @@
 export function suggestedProducts(products: string[], searchWord: string): string[][] {
   const trie = new Trie();
 
-  // Insert each product into the Trie
-  for (const product of products) {
+  // Pre-sort products lexicographically for efficient inserts
+  const sortedProducts = products.toSorted();
+
+  for (const product of sortedProducts) {
     trie.insert(product);
   }
 
-  // Get suggestions per prefix of searchWord
   return trie.getSuggestions(searchWord);
 }
 
@@ -42,14 +46,15 @@ class TrieNode {
  * Trie class for inserting products and retrieving prefix-based suggestions.
  */
 class Trie {
-  private readonly root: TrieNode;
+  private root: TrieNode;
 
   constructor() {
     this.root = new TrieNode();
   }
 
   /**
-   * Inserts a product into the Trie, maintaining up to 3 lex suggestions at each node.
+   * Inserts a product into the Trie.
+   * Appends to suggestions only if length < 3 (products are pre-sorted).
    * @param product - The product string to insert
    */
   insert(product: string): void {
@@ -62,11 +67,8 @@ class Trie {
 
       node = node.children.get(char)!;
 
-      // Insert product into lex suggestions, keep only 3 smallest
-      node.suggestions.push(product);
-      node.suggestions.sort();
-      if (node.suggestions.length > 3) {
-        node.suggestions.pop();
+      if (node.suggestions.length < 3) {
+        node.suggestions.push(product);
       }
     }
   }
@@ -86,7 +88,7 @@ class Trie {
         result.push([...node.suggestions]);
       } else {
         node = null;
-        result.push([]); // No further matches for this prefix
+        result.push([]);
       }
     }
 
