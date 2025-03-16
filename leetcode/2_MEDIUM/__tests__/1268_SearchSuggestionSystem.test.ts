@@ -55,7 +55,7 @@ describe('Leetcode #1268: Search Suggestions System', () => {
 
     // Empty product list
     it('should handle empty product list', () => {
-      const products = [];
+      const products: string[] = [];
       const searchWord = 'test';
       const result = suggestedProducts(products, searchWord);
       const expected = [[], [], [], []];
@@ -97,11 +97,9 @@ describe('Leetcode #1268: Search Suggestions System', () => {
       const products = Array.from({ length: 10_000 }, (_, i) => `product${i}`);
       const searchWord = 'product9';
 
-      // Sort the products once (to simulate internal sorting)
       const sortedProducts = products.toSorted();
-
-      // Build expected suggestions for each prefix
       const expected = [];
+
       for (let i = 1; i <= searchWord.length; i++) {
         const prefix = searchWord.slice(0, i);
         const suggestions = sortedProducts.filter((p) => p.startsWith(prefix)).slice(0, 3);

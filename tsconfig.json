@@ -1,11 +1,14 @@
 {
   "compilerOptions": {
-    "target": "ES2023",               // Enables ES2023 features in compiled output
-    "module": "ESNext",               // Recommended for modern Node (supports dynamic imports)
-    "lib": ["ES2023"],                // DOM not needed for Node; ES2023 covers .toSorted()
+    "target": "ES2023",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["ES2023"],
     "strict": true,
     "esModuleInterop": true,
-    "moduleResolution": "Node",       // Helps resolve modules correctly in Node
-    "skipLibCheck": true              // Optional: speeds up compile, skips type checks for node_modules
-  }
+    "skipLibCheck": true,
+    "types": ["vitest/globals"]
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
 }
