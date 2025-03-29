@@ -1,7 +1,7 @@
 /**
  * Converts a string to a 32-bit signed integer (mimics C/C++'s atoi function).
  *
- * Approach: Incremental Processing
+ * Approach: Incremental Processing with Early Overflow Detection
  * Time: O(n) - single pass through the input string
  * Space: O(1) - only using primitive variables
  *
@@ -32,20 +32,22 @@ export function myAtoi(str: string): number {
   let result = 0;
 
   while (index < trimmed.length && isDigit(trimmed[index])) {
-    // Convert character to digit and add to result
-    // NOTE: The approach is elegant because it follows a mathematical principle: a number can be
-    // constructed digit by digit from left to right by repeatedly multiplying by the base (10)
-    // and adding the next digit.
-    result = result * 10 + +trimmed[index];
+    const digit = +trimmed[index];
+
+    // Check for potential overflow before adding new digit
+    if (
+      result > Math.floor(INT_MAX / 10) ||
+      (result === Math.floor(INT_MAX / 10) && digit > INT_MAX % 10)
+    ) {
+      // Early return if overflow detected
+      return sign === 1 ? INT_MAX : INT_MIN;
+    }
+
+    // Build result incrementally
+    result = result * 10 + digit;
     index++;
   }
 
-  // Apply sign and handle 32-bit integer boundaries
-  result *= sign;
-
-  // Clamping pattern
-  // NOTE: This pattern creates a "bounded range" where the value cannot be less than INT_MIN
-  // or greater than INT_MAX. It's a standard idiom in programming that's both concise and readable
-  // once you understand it.
-  return Math.max(INT_MIN, Math.min(INT_MAX, result));
+  // Apply sign (no need to check bounds again)
+  return result * sign;
 }
