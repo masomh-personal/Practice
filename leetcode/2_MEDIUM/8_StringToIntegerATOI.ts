@@ -42,5 +42,10 @@ export function myAtoi(str: string): number {
 
   // Apply sign and handle 32-bit integer boundaries
   result *= sign;
+
+  // Clamping pattern
+  // NOTE: This pattern creates a "bounded range" where the value cannot be less than INT_MIN
+  // or greater than INT_MAX. It's a standard idiom in programming that's both concise and readable
+  // once you understand it.
   return Math.max(INT_MIN, Math.min(INT_MAX, result));
 }
